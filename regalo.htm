@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tu Regalo</title>
+  <style>
+    :root {
+      --bg-a: #fff3f6;
+      --bg-b: #ffe3eb;
+      --rose: #ff5f87;
+      --rose-strong: #ff3e71;
+      --ink: #4a2532;
+      --paper: #fffafc;
+      --shadow: rgba(114, 39, 61, 0.2);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.6), transparent 35%),
+        radial-gradient(circle at 85% 78%, rgba(255, 255, 255, 0.45), transparent 30%),
+        linear-gradient(140deg, var(--bg-a), var(--bg-b));
+      color: var(--ink);
+    }
+
+    header {
+      text-align: center;
+      padding: 46px 20px 28px;
+      background: linear-gradient(135deg, #ff7d9b, #ff9cb3);
+      color: #fff;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(1.8rem, 4.8vw, 2.8rem);
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 26px 18px 44px;
+    }
+
+    .gift-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .gift-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 16px 14px;
+      background: linear-gradient(135deg, var(--rose), var(--rose-strong));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(255, 62, 113, 0.28);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .gift-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 13px 22px rgba(255, 62, 113, 0.35);
+    }
+
+    .back-wrap {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .back-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 11px 20px;
+      background: #ff6b81;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(40, 10, 20, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+
+    .overlay.open { display: flex; }
+
+    .note {
+      width: min(620px, 100%);
+      background: var(--paper);
+      border-radius: 16px;
+      border: 1px solid #ffd2df;
+      box-shadow: 0 22px 34px var(--shadow);
+      padding: 20px 18px 18px;
+      animation: popIn 0.28s ease;
+    }
+
+    .note h2 {
+      margin: 0 0 10px;
+      color: #c42f5d;
+      font-size: 1.3rem;
+    }
+
+    .note p {
+      margin: 0;
+      line-height: 1.65;
+      font-size: 1.03rem;
+    }
+
+    .note-actions {
+      margin-top: 16px;
+      text-align: right;
+    }
+
+    .close-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 9px 14px;
+      cursor: pointer;
+      background: #ff5f87;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tu Regalo Secreto</h1>
+    <p>Abre cada nota y descubre la adivinanza.</p>
+  </header>
+
+  <main>
+    <section class="gift-grid">
+      <button class="gift-btn" onclick="openNote(1)">Regalo 1</button>
+      <button class="gift-btn" onclick="openNote(2)">Regalo 2</button>
+      <button class="gift-btn" onclick="openNote(3)">Regalo 3</button>
+    </section>
+
+    <div class="back-wrap">
+      <button class="back-btn" onclick="location.href='index.html'">Volver</button>
+    </div>
+  </main>
+
+  <div class="overlay" id="overlay" onclick="clickOutside(event)">
+    <article class="note" id="note">
+      <h2 id="noteTitle"></h2>
+      <p id="noteText"></p>
+      <div class="note-actions">
+        <button class="close-btn" onclick="closeNote()">Cerrar nota</button>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    const riddles = {
+      1: {
+        title: "Adivinanza del Regalo 1",
+        text: "Soy color, perfume y detalle bonito. No hablo, pero digo 'te quiero' en silencio. Vivo en un ramo y alegro cualquier rincón. ¿Qué soy?"
+      },
+      2: {
+        title: "Adivinanza del Regalo 2",
+        text: "No soy viaje largo, pero te llevo lejos. Tengo velas, música y una mesa para dos. Entre miradas y sonrisas, nace una noche especial. ¿Qué soy?"
+      },
+      3: {
+        title: "Adivinanza del Regalo 3",
+        text: "Brillo en tu muñeca o en tu cuello, guardo recuerdos en forma de encanto. Mi nombre suena a mito y amor eterno. ¿Qué joya de marca soy?"
+      }
+    };
+
+    const overlay = document.getElementById("overlay");
+    const noteTitle = document.getElementById("noteTitle");
+    const noteText = document.getElementById("noteText");
+
+    function openNote(id) {
+      const item = riddles[id];
+      if (!item) return;
+      noteTitle.textContent = item.title;
+      noteText.textContent = item.text;
+      overlay.classList.add("open");
+    }
+
+    function closeNote() {
+      overlay.classList.remove("open");
+    }
+
+    function clickOutside(event) {
+      if (event.target === overlay) closeNote();
+    }
+  </script>
+</body>
+</html>

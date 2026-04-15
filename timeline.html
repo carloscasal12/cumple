@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Línea de tiempo ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff0f3;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #ff6b81, #ff9a9e);
+      color: white;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .intro {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-left: 6px solid #ff6b81;
+      cursor: pointer;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.01);
+    }
+
+    .year {
+      font-weight: bold;
+      color: #ff4757;
+      font-size: 18px;
+    }
+
+    .content {
+      margin-top: 10px;
+      display: none;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .card.open .content {
+      display: block;
+    }
+
+    .hint {
+      font-size: 14px;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ff6b81;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff4757;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>❤️ Nuestra Línea de Tiempo</h1>
+  <p>Haz clic en cada año para descubrirlo</p>
+</header>
+
+<div class="container">
+
+  <div class="intro">
+    <p>
+      Hola mi amor, hoy es 29 de abril de 2026, el sexto año que celebramos tu cumpleaños estando juntos ❤️
+    </p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="card" onclick="toggle(this)">
+      <div class="year">29 de abril de 2021</div>
+      <div class="hint">Toca para abrir 💌</div>
+      <div class="content">
+        Fue tu primer cumpleaños conmigo. No sabía lo importante que serías en mi vida.  
+        Creo que te regalé una lámpara de luna con nuestra foto.  
+        Tenía poco dinero, pero mucho amor por ti.
+      </div>
+    </div>
+
+    <div class="card" onclick="toggle(this)">
+      <div class="year">29 de abril de 2022</div>
+      <div class="hint">Toca para abrir 💌</div>
+      <div class="content">
+        Fue un año difícil porque no te veía todos los días.  
+        Te regalé Victoria’s Secret y un bolso del Primark.  
+        Nunca te importó lo material, y eso me enamoraba más.
+      </div>
+    </div>
+
+    <div class="card" onclick="toggle(this)">
+      <div class="year">29 de abril de 2023</div>
+      <div class="hint">Toca para abrir 💌</div>
+      <div class="content">
+        Año de graduación. Entraste a la carrera de tus sueños.  
+        Te regalé pendientes de Pandora.  
+        Te hicieron muchísima ilusión ❤️
+      </div>
+    </div>
+
+    <div class="card" onclick="toggle(this)">
+      <div class="year">29 de abril de 2024</div>
+      <div class="hint">Toca para abrir 💌</div>
+      <div class="content">
+        Año muy especial. Vi a mi artista favorito contigo.  
+        Te regalé un joyero con una rosa eterna y un collar.  
+        Como nuestro amor ❤️
+      </div>
+    </div>
+
+    <div class="card" onclick="toggle(this)">
+      <div class="year">29 de abril de 2025</div>
+      <div class="hint">Toca para abrir 💌</div>
+      <div class="content">
+        Te llevé a La Tagliatella, tu restaurante favorito.  
+        Te regalé perfumes y te prometí un viaje a Roma.  
+        Quiero que cada año sea mejor.
+      </div>
+    </div>
+
+    <div class="card" onclick="toggle(this)">
+      <div class="year">29 de abril de 2026</div>
+      <div class="hint">Toca para abrir 💌</div>
+      <div class="content">
+        Hoy celebramos otro año más juntos ❤️  
+        Y esto solo acaba de empezar.
+      </div>
+    </div>
+
+  </div>
+
+  <button onclick="location.href='index.html'">Volver</button>
+
+</div>
+
+<script>
+  function toggle(el) {
+    el.classList.toggle("open");
+  }
+</script>
+
+</body>
+</html>

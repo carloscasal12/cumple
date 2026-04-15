@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carta Para Ti</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --rose-1: #ffdde7;
+      --rose-2: #ffc3d6;
+      --rose-3: #ff9fb9;
+      --ink: #4a1f2e;
+      --ink-soft: #693446;
+      --paper: #fff9fb;
+      --shadow: rgba(109, 38, 60, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.45), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.35), transparent 35%),
+        linear-gradient(140deg, var(--rose-1), var(--rose-2) 45%, var(--rose-3));
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--ink);
+    }
+
+    .letter {
+      width: min(760px, 100%);
+      background: var(--paper);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 159, 185, 0.45);
+      box-shadow: 0 20px 45px var(--shadow);
+      padding: clamp(24px, 4vw, 42px);
+      position: relative;
+      overflow: hidden;
+      animation: floatIn 900ms ease-out;
+    }
+
+    .letter::before,
+    .letter::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 159, 185, 0.25), rgba(255, 159, 185, 0));
+      pointer-events: none;
+    }
+
+    .letter::before {
+      top: -60px;
+      right: -60px;
+    }
+
+    .letter::after {
+      bottom: -70px;
+      left: -70px;
+    }
+
+    .title {
+      margin: 0 0 12px;
+      text-align: center;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: #c93167;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 0 0 26px;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+
+    .content {
+      font-size: clamp(1rem, 2.6vw, 1.2rem);
+      line-height: 1.9;
+      text-wrap: pretty;
+      animation: fadeUp 1100ms ease-out;
+    }
+
+    .content p {
+      margin: 0 0 16px;
+    }
+
+    .signature {
+      margin-top: 26px;
+      text-align: right;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: #b12858;
+    }
+
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff5f8f, #ff3f74);
+      color: white;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 12px 22px;
+      cursor: pointer;
+      box-shadow: 0 10px 18px rgba(255, 63, 116, 0.35);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 24px rgba(255, 63, 116, 0.4);
+    }
+
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .letter {
+        border-radius: 18px;
+      }
+
+      .content {
+        line-height: 1.8;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="letter">
+    <h1 class="title">Para el amor de mi vida</h1>
+    <p class="subtitle">Una carta desde mi corazón</p>
+
+    <section class="content">
+      <p>Mi amor,</p>
+      <p>
+        Quiero que sepas que cada día a tu lado tiene algo especial. Tu sonrisa me calma,
+        tu voz me abraza y tu forma de querer hace que todo en mi vida tenga más luz.
+      </p>
+      <p>
+        Te quiero por cómo me miras, por cómo me entiendes incluso cuando no sé explicarme,
+        y por la paz tan bonita que siento cuando estamos juntos. Eres mi lugar favorito.
+      </p>
+      <p>
+        Gracias por existir, por acompañarme, por ser tú. Te quiero hoy, mañana y en cada
+        paso que demos, porque contigo todo vale más.
+      </p>
+      <p class="signature">Con todo mi amor</p>
+    </section>
+
+    <div class="actions">
+      <button class="btn" onclick="location.href='index.html'">Volver al inicio</button>
+    </div>
+  </main>
+</body>
+</html>

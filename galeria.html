@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Galería ❤️</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(to top,#ffd1dc,#fff0f3);
+}
+
+header{
+  text-align:center;
+  padding:40px;
+  background:linear-gradient(135deg,#ff6b81,#ff9a9e);
+  color:white;
+}
+
+/* NUBES */
+.clouds{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  padding:30px;
+  max-width:800px;
+  margin:auto;
+}
+
+.cloud{
+  background:white;
+  border-radius:40px;
+  padding:20px;
+  text-align:center;
+  cursor:pointer;
+  box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* CARRUSEL */
+.viewer{
+  display:none;
+  text-align:center;
+  padding:20px;
+}
+
+.viewer img{
+  width:100%;
+  max-width:500px;
+  border-radius:12px;
+}
+
+/* BOTONES */
+.controls{
+  margin-top:10px;
+}
+
+button{
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#ff6b81;
+  color:white;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#ff4757;
+}
+
+.back{
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>📸 Galería de recuerdos</h1>
+  <p>Haz clic en una nube ☁️</p>
+</header>
+
+<!-- NUBES -->
+<div class="clouds">
+  <div class="cloud" onclick="loadYear(0)">☁️ 2021</div>
+  <div class="cloud" onclick="loadYear(1)">☁️ 2022</div>
+  <div class="cloud" onclick="loadYear(2)">☁️ 2023</div>
+  <div class="cloud" onclick="loadYear(3)">☁️ 2024</div>
+  <div class="cloud" onclick="loadYear(4)">☁️ 2025</div>
+  <div class="cloud" onclick="loadYear(5)">☁️ 2026</div>
+</div>
+
+<!-- VISOR -->
+<div class="viewer" id="viewer">
+
+  <h2 id="title"></h2>
+
+  <img id="img">
+
+  <div class="controls">
+    <button onclick="prev()">⬅</button>
+    <button onclick="next()">➡</button>
+  </div>
+
+  <div class="back">
+    <button onclick="back()">Volver a nubes</button>
+  </div>
+
+</div>
+
+<div class="back" style="text-align:center; margin: 24px 0 36px;">
+  <button onclick="location.href='index.html'">Volver</button>
+</div>
+
+<script>
+
+const data = [
+  ["fotos/2021/foto1.jpeg","fotos/2021/foto2.jpeg","fotos/2021/foto3.jpeg"],
+  ["fotos/2022/foto1.jpeg","fotos/2022/foto2.jpeg","fotos/2022/foto3.jpeg"],
+  ["fotos/2023/foto1.jpeg","fotos/2023/foto2.jpeg","fotos/2023/foto3.jpeg"],
+  ["fotos/2024/foto1.jpeg","fotos/2024/foto2.jpeg","fotos/2024/foto3.jpeg"],
+  ["fotos/2025/foto1.jpeg","fotos/2025/foto2.jpeg","fotos/2025/foto3.jpeg"],
+  ["fotos/2026/foto1.jpeg","fotos/2026/foto2.jpeg","fotos/2026/foto3.jpeg"]
+];
+
+const years = ["2021","2022","2023","2024","2025","2026"];
+
+let year = 0;
+let index = 0;
+const img = document.getElementById("img");
+const title = document.getElementById("title");
+
+img.onerror = () => {
+  const images = data[year] || [];
+  if (!images.length) {
+    title.innerText = `${years[year]} (sin fotos disponibles)`;
+    img.removeAttribute("src");
+    return;
+  }
+
+  // Si una imagen falla, intentamos avanzar; evita bloqueos visuales.
+  index = (index + 1) % images.length;
+  img.src = images[index];
+};
+
+function loadYear(y){
+  year = y;
+  index = 0;
+
+  document.getElementById("viewer").style.display = "block";
+  document.querySelector(".clouds").style.display = "none";
+
+  title.innerText = years[y];
+
+  update();
+}
+
+function update(){
+  const images = data[year] || [];
+  if (!images.length) {
+    title.innerText = `${years[year]} (sin fotos disponibles)`;
+    img.removeAttribute("src");
+    return;
+  }
+  img.src = images[index];
+}
+
+function next(){
+  if (!data[year]?.length) return;
+  index = (index + 1) % data[year].length;
+  update();
+}
+
+function prev(){
+  if (!data[year]?.length) return;
+  index = (index - 1 + data[year].length) % data[year].length;
+  update();
+}
+
+function back(){
+  document.getElementById("viewer").style.display = "none";
+  document.querySelector(".clouds").style.display = "grid";
+}
+
+</script>
+
+</body>
+</html>
