@@ -51,29 +51,100 @@
       padding: 26px 18px 44px;
     }
 
+    .progress-panel {
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid #ffd2df;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 12px 24px rgba(114, 39, 61, 0.12);
+    }
+
+    .progress-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .progress-count {
+      color: #c42f5d;
+      white-space: nowrap;
+    }
+
+    .progress-track {
+      height: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #ffe0e9;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(135deg, var(--rose), var(--rose-strong));
+      transition: width 0.35s ease;
+    }
+
     .gift-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 14px;
       margin-top: 16px;
     }
 
     .gift-btn {
       border: none;
-      border-radius: 14px;
-      padding: 16px 14px;
-      background: linear-gradient(135deg, var(--rose), var(--rose-strong));
-      color: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 241, 246, 0.92)),
+        linear-gradient(135deg, var(--rose), var(--rose-strong));
+      color: var(--ink);
       font-weight: 700;
       font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 10px 18px rgba(255, 62, 113, 0.28);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-align: left;
+      box-shadow: 0 12px 22px rgba(255, 62, 113, 0.18);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      border: 1px solid #ffd2df;
     }
 
     .gift-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 13px 22px rgba(255, 62, 113, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 30px rgba(255, 62, 113, 0.24);
+      border-color: #ff9fba;
+    }
+
+    .gift-btn.unlocked {
+      background: linear-gradient(135deg, #fff, #ffe9ef);
+      border-color: #ff8bad;
+    }
+
+    .gift-number {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--rose-strong));
+      color: #fff;
+      box-shadow: 0 10px 16px rgba(255, 62, 113, 0.22);
+    }
+
+    .gift-btn strong,
+    .gift-btn span {
+      display: block;
+    }
+
+    .gift-btn span:last-child {
+      margin-top: 7px;
+      color: #8a4a5c;
+      font-size: 0.92rem;
+      font-weight: 400;
     }
 
     .back-wrap {
@@ -126,19 +197,56 @@
       font-size: 1.03rem;
     }
 
-    .note-actions {
+    .secret-box {
       margin-top: 16px;
-      text-align: right;
+      padding: 14px;
+      border-radius: 14px;
+      background: #fff1f5;
+      border: 1px dashed #ff9fba;
+      display: none;
     }
 
+    .secret-box.show {
+      display: block;
+      animation: popIn 0.24s ease;
+    }
+
+    .secret-label {
+      display: block;
+      margin-bottom: 6px;
+      color: #c42f5d;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .note-actions {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .note-btn,
     .close-btn {
       border: none;
       border-radius: 10px;
       padding: 9px 14px;
       cursor: pointer;
+      font-weight: 700;
+    }
+
+    .note-btn {
+      background: #fff;
+      color: #c42f5d;
+      border: 1px solid #ffd2df;
+    }
+
+    .close-btn {
       background: #ff5f87;
       color: #fff;
-      font-weight: 700;
     }
 
     @keyframes popIn {
@@ -154,10 +262,32 @@
   </header>
 
   <main>
+    <section class="progress-panel" aria-live="polite">
+      <div class="progress-top">
+        <span>Misión de regalos</span>
+        <span class="progress-count" id="progressCount">0 de 3 descubiertos</span>
+      </div>
+      <div class="progress-track" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </section>
+
     <section class="gift-grid">
-      <button class="gift-btn" onclick="openNote(1)">Regalo 1</button>
-      <button class="gift-btn" onclick="openNote(2)">Regalo 2</button>
-      <button class="gift-btn" onclick="openNote(3)">Regalo 3</button>
+      <button class="gift-btn" id="gift1" onclick="openNote(1)">
+        <span class="gift-number">1</span>
+        <strong>Regalo 1</strong>
+        <span>Una pista con color y perfume.</span>
+      </button>
+      <button class="gift-btn" id="gift2" onclick="openNote(2)">
+        <span class="gift-number">2</span>
+        <strong>Regalo 2</strong>
+        <span>Una pista para perderse juntos.</span>
+      </button>
+      <button class="gift-btn" id="gift3" onclick="openNote(3)">
+        <span class="gift-number">3</span>
+        <strong>Regalo 3</strong>
+        <span>Una pista que brilla mucho.</span>
+      </button>
     </section>
 
     <div class="back-wrap">
@@ -169,7 +299,17 @@
     <article class="note" id="note">
       <h2 id="noteTitle"></h2>
       <p id="noteText"></p>
+      <div class="secret-box" id="hintBox">
+        <span class="secret-label">Pista extra</span>
+        <p id="hintText"></p>
+      </div>
+      <div class="secret-box" id="answerBox">
+        <span class="secret-label">Respuesta</span>
+        <p id="answerText"></p>
+      </div>
       <div class="note-actions">
+        <button class="note-btn" onclick="showHint()">Ver pista</button>
+        <button class="note-btn" onclick="revealAnswer()">Descubrir respuesta</button>
         <button class="close-btn" onclick="closeNote()">Cerrar nota</button>
       </div>
     </article>
@@ -179,28 +319,66 @@
     const riddles = {
       1: {
         title: "Adivinanza del Regalo 1",
-        text: "Soy color, perfume y detalle bonito. No hablo, pero digo 'te quiero' en silencio. Vivo en un ramo y alegro cualquier rincón. ¿Qué soy?"
+        text: "Soy color, perfume y detalle bonito. No hablo, pero digo 'te quiero' en silencio. Vivo en un ramo y alegro cualquier rincón. ¿Qué soy?",
+        hint: "Aparece en fechas especiales y queda precioso en una mesa.",
+        answer: "Un ramo de flores."
       },
       2: {
         title: "Adivinanza del Regalo 2",
-        text: "No soy viaje largo, pero te llevo lejos. Tengo velas, música y una mesa para dos. Entre miradas y sonrisas, nace una noche especial. ¿Qué soy?"
+        text: "No duro mucho, pero se me recuerda siempre. Tengo maleta pequeña, una noche fuera, paseos sin prisa y un finde entero para nosotros dos. ¿Qué soy?",
+        hint: "No cabe en una caja, pero empieza haciendo una maleta.",
+        answer: "Una escapada romántica de fin de semana."
       },
       3: {
         title: "Adivinanza del Regalo 3",
-        text: "Brillo en tu muñeca o en tu cuello, guardo recuerdos en forma de encanto. Mi nombre suena a mito y amor eterno. ¿Qué joya de marca soy?"
+        text: "Brillo en tu muñeca o en tu cuello, guardo recuerdos en forma de encanto. Mi nombre suena a mito y amor eterno. ¿Qué joya de marca soy?",
+        hint: "Sus charms cuentan historias pequeñas.",
+        answer: "Una joya de Pandora."
       }
     };
 
     const overlay = document.getElementById("overlay");
     const noteTitle = document.getElementById("noteTitle");
     const noteText = document.getElementById("noteText");
+    const hintBox = document.getElementById("hintBox");
+    const hintText = document.getElementById("hintText");
+    const answerBox = document.getElementById("answerBox");
+    const answerText = document.getElementById("answerText");
+    const progressCount = document.getElementById("progressCount");
+    const progressFill = document.getElementById("progressFill");
+    const discovered = new Set();
+    let currentGift = null;
 
     function openNote(id) {
       const item = riddles[id];
       if (!item) return;
+      currentGift = id;
       noteTitle.textContent = item.title;
       noteText.textContent = item.text;
+      hintText.textContent = item.hint;
+      answerText.textContent = item.answer;
+      hintBox.classList.remove("show");
+      answerBox.classList.remove("show");
       overlay.classList.add("open");
+    }
+
+    function showHint() {
+      hintBox.classList.add("show");
+    }
+
+    function revealAnswer() {
+      if (!currentGift) return;
+      answerBox.classList.add("show");
+      discovered.add(currentGift);
+      document.getElementById(`gift${currentGift}`)?.classList.add("unlocked");
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const total = Object.keys(riddles).length;
+      const count = discovered.size;
+      progressCount.textContent = `${count} de ${total} descubiertos`;
+      progressFill.style.width = `${(count / total) * 100}%`;
     }
 
     function closeNote() {
