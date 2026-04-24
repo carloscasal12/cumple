@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nuestra Historia</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f4;
+      --rose: #ffe1eb;
+      --rose-strong: #d92d66;
+      --wine: #4a1328;
+      --soft: #7b4158;
+      --card: rgba(255, 255, 255, 0.78);
+      --shadow: rgba(97, 20, 47, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--wine);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(255, 255, 255, 0.86), transparent 26%),
+        radial-gradient(circle at 88% 18%, rgba(255, 204, 220, 0.7), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--rose));
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 72px 22px 46px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 45, 102, 0.15), transparent 68%);
+      animation: drift 8s ease-in-out infinite;
+    }
+
+    .hero::before { left: -120px; top: 80px; }
+    .hero::after { right: -120px; bottom: 20px; animation-delay: -3s; }
+
+    .hero-inner {
+      width: min(940px, 100%);
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 850ms ease both;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.4rem, 10vw, 7rem);
+      color: var(--rose-strong);
+      line-height: 0.9;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 24px auto 0;
+      font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+      line-height: 1.8;
+      color: var(--soft);
+    }
+
+    .container {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 0 20px 70px;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      text-align: center;
+    }
+
+    .story-card {
+      background: var(--card);
+      border: 1px solid rgba(217, 45, 102, 0.16);
+      border-radius: 28px;
+      padding: clamp(24px, 5vw, 46px);
+      box-shadow: 0 22px 48px var(--shadow);
+      backdrop-filter: blur(14px);
+      margin-bottom: 28px;
+    }
+
+    .story-card p {
+      margin: 0 0 16px;
+      font-size: 1.08rem;
+      line-height: 1.85;
+      color: #5f263b;
+    }
+
+    .moments {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .moment {
+      background: rgba(255, 255, 255, 0.74);
+      border-radius: 22px;
+      padding: 22px;
+      border: 1px solid rgba(217, 45, 102, 0.13);
+      box-shadow: 0 14px 28px rgba(97, 20, 47, 0.1);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .moment:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 38px rgba(97, 20, 47, 0.15);
+    }
+
+    .moment span {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: white;
+      background: linear-gradient(135deg, #ff6e9f, var(--rose-strong));
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .moment h3 {
+      margin: 0 0 8px;
+      color: var(--wine);
+    }
+
+    .moment p {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+    }
+
+    .editable-note {
+      border: 1px dashed rgba(217, 45, 102, 0.38);
+      border-radius: 20px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--soft);
+      font-size: 0.96rem;
+      line-height: 1.7;
+    }
+
+    .quote {
+      text-align: center;
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: #b92358;
+      margin: 34px auto;
+      max-width: 850px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff5f8f, #cf1f58);
+      color: white;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(207, 31, 88, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: white;
+      color: #b92358;
+      border: 1px solid rgba(185, 35, 88, 0.16);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: var(--soft);
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-22px) scale(1.05); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .hero { min-height: 58vh; padding-top: 54px; }
+      .story-card { border-radius: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Nuestra historia</p>
+      <h1>Todo lo que hemos vivido</h1>
+      <p class="lead">
+        Esta página es para guardar, poco a poco, todos esos momentos que parecen pequeños,
+        pero que al mirarlos juntos cuentan algo enorme: nuestra historia.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="story-card">
+      <h2 class="section-title">Cómo empezó todo</h2>
+      <p>
+        Aquí puedes contar cómo os conocisteis, qué fue lo primero que te llamó la atención de ella,
+        cuándo empezaste a darte cuenta de que era alguien especial y cuál fue ese momento en el que
+        pensaste: “ojalá esto dure mucho”.
+      </p>
+      <p>
+        Puedes cambiar este texto por vuestra historia real. La idea es que suene a ti, con detalles
+        concretos, bromas vuestras y recuerdos que solo vosotros entendáis.
+      </p>
+      <div class="editable-note">
+        Idea para completar: escribe aquí el primer recuerdo bonito, una frase que recuerdes,
+        dónde estabais, qué sentiste y por qué ese día fue importante.
+      </div>
+    </section>
+
+    <section class="story-card">
+      <h2 class="section-title">Momentos que nos marcaron</h2>
+      <div class="moments">
+        <article class="moment">
+          <span>1</span>
+          <h3>El primer cumpleaños juntos</h3>
+          <p>
+            Un recuerdo sencillo, pero lleno de ilusión. Puedes contar qué le regalaste,
+            cómo lo viviste y qué significó para ti.
+          </p>
+        </article>
+        <article class="moment">
+          <span>2</span>
+          <h3>Un año difícil</h3>
+          <p>
+            Aquí puedes hablar de una etapa en la que no todo fue fácil, pero seguisteis eligiéndoos.
+          </p>
+        </article>
+        <article class="moment">
+          <span>3</span>
+          <h3>Un sueño cumplido</h3>
+          <p>
+            Añade una etapa importante para ella: estudios, logros, cambios, ilusiones o metas.
+          </p>
+        </article>
+        <article class="moment">
+          <span>4</span>
+          <h3>Un plan inolvidable</h3>
+          <p>
+            Puedes poner una cena, un viaje, un concierto, una tarde juntos o un lugar especial.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <p class="quote">“Lo nuestro no es solo tiempo juntos, es todo lo que hemos construido dentro de él.”</p>
+
+    <section class="story-card">
+      <h2 class="section-title">Lo que quiero que recuerdes</h2>
+      <p>
+        Quiero que recuerdes que cada año contigo me ha enseñado algo distinto: a querer mejor,
+        a valorar más los detalles y a entender que estar con la persona correcta hace que hasta
+        los días normales tengan algo especial.
+      </p>
+      <p>
+        Esta parte puedes usarla para escribir una promesa, una dedicatoria final o una lista de cosas
+        que quieres vivir con ella en el futuro.
+      </p>
+      <div class="actions">
+        <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+        <button class="btn" onclick="location.href='timeline.html'">Ver línea del tiempo</button>
+        <button class="btn" onclick="location.href='carta.html'">Abrir la carta</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Hecho con cariño, para seguir completándolo con vuestra historia real.</footer>
+</body>
+</html>

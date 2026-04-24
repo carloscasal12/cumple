@@ -8,18 +8,17 @@
     @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
 
     :root {
-      --rose-1: #ffdde7;
-      --rose-2: #ffc3d6;
-      --rose-3: #ff9fb9;
+      --rose-1: #fff0f5;
+      --rose-2: #ffd6e4;
+      --rose-3: #ff93b5;
+      --rose-4: #e13f73;
       --ink: #4a1f2e;
-      --ink-soft: #693446;
-      --paper: #fff9fb;
-      --shadow: rgba(109, 38, 60, 0.25);
+      --ink-soft: #744156;
+      --paper: #fffaf6;
+      --shadow: rgba(109, 38, 60, 0.28);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -28,45 +27,226 @@
       place-items: center;
       padding: 24px;
       background:
-        radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.45), transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(255, 255, 255, 0.35), transparent 35%),
-        linear-gradient(140deg, var(--rose-1), var(--rose-2) 45%, var(--rose-3));
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.7), transparent 28%),
+        radial-gradient(circle at 82% 82%, rgba(255, 255, 255, 0.35), transparent 32%),
+        linear-gradient(140deg, var(--rose-1), var(--rose-2) 46%, var(--rose-3));
       font-family: "Playfair Display", Georgia, serif;
       color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    .scene {
+      width: min(820px, 100%);
+      display: grid;
+      justify-items: center;
+      gap: 24px;
+    }
+
+    .intro {
+      text-align: center;
+      animation: fadeDown 700ms ease both;
+    }
+
+    .intro p {
+      margin: 0 0 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.78rem;
+      color: var(--ink-soft);
+    }
+
+    .intro h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(2.8rem, 8vw, 5rem);
+      color: #b9275b;
+      line-height: 0.95;
+    }
+
+    .envelope-wrap {
+      width: min(520px, 92vw);
+      min-height: 340px;
+      display: grid;
+      place-items: center;
+      perspective: 1400px;
+    }
+
+    .envelope {
+      width: min(480px, 90vw);
+      height: 300px;
+      position: relative;
+      cursor: pointer;
+      filter: drop-shadow(0 24px 34px var(--shadow));
+      animation: floatEnvelope 3.2s ease-in-out infinite;
+      transition: transform 500ms ease, opacity 500ms ease;
+    }
+
+    .envelope.open {
+      transform: translateY(48px) scale(0.84);
+      opacity: 0;
+      pointer-events: none;
+      animation: none;
+    }
+
+    .back,
+    .front,
+    .flap,
+    .heart-seal {
+      position: absolute;
+      inset: 0;
+    }
+
+    .back {
+      border-radius: 18px;
+      background: linear-gradient(145deg, #fff7fa, #ffc0d4);
+      border: 1px solid rgba(185, 39, 91, 0.18);
+    }
+
+    .front {
+      top: auto;
+      height: 170px;
+      bottom: 0;
+      border-radius: 0 0 18px 18px;
+      background:
+        linear-gradient(35deg, transparent 49.5%, rgba(255,255,255,0.34) 50%, transparent 50.5%),
+        linear-gradient(145deg, #ffacc6, #ff7faa);
+      clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+      z-index: 4;
+    }
+
+    .flap {
+      height: 170px;
+      transform-origin: top center;
+      border-radius: 18px 18px 0 0;
+      background: linear-gradient(160deg, #ffcee0, #ff7aa4);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      z-index: 5;
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .envelope:hover .flap,
+    .envelope.preview .flap {
+      transform: rotateX(18deg);
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(165deg);
+    }
+
+    .paper-peek {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 78px;
+      height: 174px;
+      background: var(--paper);
+      border-radius: 14px 14px 8px 8px;
+      z-index: 2;
+      padding: 22px;
+      text-align: center;
+      color: var(--ink-soft);
+      transition: transform 850ms ease;
+    }
+
+    .envelope:hover .paper-peek,
+    .envelope.preview .paper-peek {
+      transform: translateY(-16px);
+    }
+
+    .envelope.open .paper-peek {
+      transform: translateY(-170px);
+    }
+
+    .paper-peek strong {
+      display: block;
+      font-family: "Great Vibes", cursive;
+      font-size: 2.1rem;
+      color: #c62f66;
+      margin-bottom: 8px;
+    }
+
+    .heart-seal {
+      inset: auto auto 82px 50%;
+      width: 58px;
+      height: 58px;
+      transform: translateX(-50%) rotate(45deg);
+      background: linear-gradient(135deg, #ff346f, #c8174f);
+      border-radius: 12px;
+      z-index: 8;
+      box-shadow: 0 10px 20px rgba(198, 47, 102, 0.35);
+    }
+
+    .heart-seal::before,
+    .heart-seal::after {
+      content: "";
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .heart-seal::before { left: -29px; top: 0; }
+    .heart-seal::after { top: -29px; left: 0; }
+
+    .open-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 24px;
+      color: white;
+      background: linear-gradient(135deg, #ff477e, #c8174f);
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 24px rgba(198, 47, 102, 0.28);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .open-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 30px rgba(198, 47, 102, 0.34);
     }
 
     .letter {
       width: min(760px, 100%);
-      background: var(--paper);
-      border-radius: 22px;
-      border: 1px solid rgba(255, 159, 185, 0.45);
-      box-shadow: 0 20px 45px var(--shadow);
-      padding: clamp(24px, 4vw, 42px);
-      position: relative;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(28px) scale(0.98);
       overflow: hidden;
-      animation: floatIn 900ms ease-out;
+      pointer-events: none;
+      transition: max-height 1200ms ease, opacity 900ms ease, transform 900ms ease;
     }
 
-    .letter::before,
-    .letter::after {
+    .letter.open {
+      max-height: 1200px;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .letter-card {
+      background: var(--paper);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 159, 185, 0.45);
+      box-shadow: 0 22px 52px var(--shadow);
+      padding: clamp(24px, 4vw, 44px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-card::before,
+    .letter-card::after {
       content: "";
       position: absolute;
-      width: 180px;
-      height: 180px;
+      width: 190px;
+      height: 190px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(255, 159, 185, 0.25), rgba(255, 159, 185, 0));
       pointer-events: none;
     }
 
-    .letter::before {
-      top: -60px;
-      right: -60px;
-    }
-
-    .letter::after {
-      bottom: -70px;
-      left: -70px;
-    }
+    .letter-card::before { top: -70px; right: -70px; }
+    .letter-card::after { bottom: -80px; left: -80px; }
 
     .title {
       margin: 0 0 12px;
@@ -90,12 +270,9 @@
       font-size: clamp(1rem, 2.6vw, 1.2rem);
       line-height: 1.9;
       text-wrap: pretty;
-      animation: fadeUp 1100ms ease-out;
     }
 
-    .content p {
-      margin: 0 0 16px;
-    }
+    .content p { margin: 0 0 16px; }
 
     .signature {
       margin-top: 26px;
@@ -109,6 +286,8 @@
       margin-top: 24px;
       display: flex;
       justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -124,69 +303,115 @@
       transition: transform 180ms ease, box-shadow 180ms ease;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 24px rgba(255, 63, 116, 0.4);
+    .btn.secondary {
+      background: #fff;
+      color: #b12858;
+      border: 1px solid rgba(177, 40, 88, 0.18);
     }
 
-    @keyframes floatIn {
-      from {
-        opacity: 0;
-        transform: translateY(14px) scale(0.985);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+    .btn:hover { transform: translateY(-2px); }
+
+    @keyframes floatEnvelope {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 560px) {
-      .letter {
-        border-radius: 18px;
-      }
-
-      .content {
-        line-height: 1.8;
-      }
+      body { padding: 18px; }
+      .envelope-wrap { min-height: 280px; }
+      .envelope { height: 250px; }
+      .paper-peek { height: 145px; bottom: 68px; }
+      .front { height: 145px; }
+      .flap { height: 145px; }
+      .heart-seal { width: 46px; height: 46px; bottom: 72px; }
+      .heart-seal::before, .heart-seal::after { width: 46px; height: 46px; }
+      .heart-seal::before { left: -23px; }
+      .heart-seal::after { top: -23px; }
+      .content { line-height: 1.8; }
     }
   </style>
 </head>
 <body>
-  <main class="letter">
-    <h1 class="title">Para el amor de mi vida</h1>
-    <p class="subtitle">Una carta desde mi corazón</p>
-
-    <section class="content">
-      <p>Mi amor,</p>
-      <p>
-        Quiero que sepas que cada día a tu lado tiene algo especial. Tu sonrisa me calma,
-        tu voz me abraza y tu forma de querer hace que todo en mi vida tenga más luz.
-      </p>
-      <p>
-        Te quiero por cómo me miras, por cómo me entiendes incluso cuando no sé explicarme,
-        y por la paz tan bonita que siento cuando estamos juntos. Eres mi lugar favorito.
-      </p>
-      <p>
-        Gracias por existir, por acompañarme, por ser tú. Te quiero hoy, mañana y en cada
-        paso que demos, porque contigo todo vale más.
-      </p>
-      <p class="signature">Con todo mi amor</p>
+  <main class="scene">
+    <section class="intro" id="intro">
+      <p>Una carta desde mi corazón</p>
+      <h1>Para ti</h1>
     </section>
 
-    <div class="actions">
-      <button class="btn" onclick="location.href='index.html'">Volver al inicio</button>
-    </div>
+    <section class="envelope-wrap" aria-label="Carta animada">
+      <div class="envelope preview" id="envelope" role="button" tabindex="0" aria-label="Abrir carta">
+        <div class="back"></div>
+        <div class="paper-peek">
+          <strong>Mi amor</strong>
+          <span>Hay algo que quiero decirte...</span>
+        </div>
+        <div class="flap"></div>
+        <div class="front"></div>
+        <div class="heart-seal"></div>
+      </div>
+    </section>
+
+    <button class="open-btn" id="openLetter">Abrir la carta</button>
+
+    <section class="letter" id="letter">
+      <article class="letter-card">
+        <h1 class="title">Para el amor de mi vida</h1>
+        <p class="subtitle">Una carta desde mi corazón</p>
+
+        <section class="content">
+          <p>Mi amor,</p>
+          <p>
+            Quiero que sepas que cada día a tu lado tiene algo especial. Tu sonrisa me calma,
+            tu voz me abraza y tu forma de querer hace que todo en mi vida tenga más luz.
+          </p>
+          <p>
+            Te quiero por cómo me miras, por cómo me entiendes incluso cuando no sé explicarme,
+            y por la paz tan bonita que siento cuando estamos juntos. Eres mi lugar favorito.
+          </p>
+          <p>
+            Gracias por existir, por acompañarme, por ser tú. Te quiero hoy, mañana y en cada
+            paso que demos, porque contigo todo vale más.
+          </p>
+          <p class="signature">Con todo mi amor</p>
+        </section>
+
+        <div class="actions">
+          <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+          <button class="btn" onclick="location.href='historia.html'">Ver nuestra historia</button>
+        </div>
+      </article>
+    </section>
   </main>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+    const openButton = document.getElementById('openLetter');
+
+    function openLetter() {
+      envelope.classList.remove('preview');
+      envelope.classList.add('open');
+      openButton.style.opacity = '0';
+      openButton.style.pointerEvents = 'none';
+      setTimeout(() => {
+        letter.classList.add('open');
+        letter.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 520);
+    }
+
+    envelope.addEventListener('click', openLetter);
+    openButton.addEventListener('click', openLetter);
+    envelope.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openLetter();
+      }
+    });
+  </script>
 </body>
 </html>
