@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abrir Cuando</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f5;
+      --blush: #ffe0ea;
+      --rose: #e83f74;
+      --rose-dark: #b51f54;
+      --ink: #471728;
+      --soft: #7a4357;
+      --card: rgba(255, 255, 255, 0.84);
+      --shadow: rgba(95, 23, 48, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.82), transparent 28%),
+        radial-gradient(circle at 86% 24%, rgba(255, 166, 194, 0.36), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--blush));
+    }
+
+    header {
+      text-align: center;
+      padding: 58px 20px 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.1rem, 9vw, 6.2rem);
+      line-height: 0.95;
+      color: var(--rose-dark);
+    }
+
+    .lead {
+      max-width: 710px;
+      margin: 20px auto 0;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    main {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 18px 20px 62px;
+    }
+
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .letter-card {
+      min-height: 220px;
+      border: 1px solid rgba(232, 63, 116, 0.18);
+      border-radius: 24px;
+      padding: 22px;
+      background: var(--card);
+      box-shadow: 0 18px 38px var(--shadow);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      color: inherit;
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .letter-card:hover,
+    .letter-card.open {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 46px rgba(95, 23, 48, 0.24);
+      border-color: rgba(232, 63, 116, 0.36);
+    }
+
+    .stamp {
+      display: inline-grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, #ff7aa2, var(--rose-dark));
+      font-weight: 700;
+      box-shadow: 0 12px 20px rgba(181, 31, 84, 0.2);
+      margin-bottom: 16px;
+    }
+
+    .letter-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.28rem;
+      color: var(--ink);
+    }
+
+    .letter-card p {
+      margin: 0;
+      color: var(--soft);
+      line-height: 1.7;
+      display: none;
+    }
+
+    .letter-card.open p { display: block; }
+
+    .hint {
+      display: block;
+      margin-top: 14px;
+      color: var(--rose-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .letter-card.open .hint { display: none; }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: white;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(181, 31, 84, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--rose-dark);
+      border: 1px solid rgba(181, 31, 84, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: var(--soft);
+    }
+
+    @media (max-width: 640px) {
+      header { padding-top: 42px; }
+      .letter-card { min-height: 190px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <p class="eyebrow">Cartas para momentos concretos</p>
+    <h1>Abrir Cuando...</h1>
+    <p class="lead">Cada tarjeta guarda un mensaje para un día distinto. Toca la que necesites y deja que te recuerde lo mucho que significas para mí.</p>
+  </header>
+
+  <main>
+    <section class="letters-grid" aria-label="Cartas para abrir cuando">
+      <button class="letter-card" type="button">
+        <span class="stamp">01</span>
+        <h2>Abrir cuando estés triste</h2>
+        <p>Quiero que sepas que no tienes que poder con todo siempre. Estoy contigo, incluso en los días raros, y si pudiera te abrazaría hasta que el mundo pesara un poquito menos.</p>
+        <span class="hint">Toca para abrir</span>
+      </button>
+
+      <button class="letter-card" type="button">
+        <span class="stamp">02</span>
+        <h2>Abrir cuando me eches de menos</h2>
+        <p>Yo también te echo de menos. Pero me gusta pensar que cada rato separados solo hace más bonito el momento de volver a verte y volver a sentir que estoy en casa.</p>
+        <span class="hint">Toca para abrir</span>
+      </button>
+
+      <button class="letter-card" type="button">
+        <span class="stamp">03</span>
+        <h2>Abrir cuando dudes de ti</h2>
+        <p>Ojalá pudieras verte como yo te veo: fuerte, bonita, inteligente y capaz de mucho más de lo que a veces crees. Yo creo en ti incluso cuando tú te despistas.</p>
+        <span class="hint">Toca para abrir</span>
+      </button>
+
+      <button class="letter-card" type="button">
+        <span class="stamp">04</span>
+        <h2>Abrir cuando quieras reír</h2>
+        <p>Piensa en una de nuestras tonterías, en esas miradas que ya dicen demasiado, o en cualquier momento en el que nos entró la risa por nada. Me encanta reír contigo.</p>
+        <span class="hint">Toca para abrir</span>
+      </button>
+
+      <button class="letter-card" type="button">
+        <span class="stamp">05</span>
+        <h2>Abrir cuando necesites amor</h2>
+        <p>Te quiero con calma, con ilusión, con ganas de cuidarte y con la certeza de que elegirte fue una de las cosas más bonitas que he hecho.</p>
+        <span class="hint">Toca para abrir</span>
+      </button>
+
+      <button class="letter-card" type="button">
+        <span class="stamp">06</span>
+        <h2>Abrir cuando sea tu cumpleaños</h2>
+        <p>Feliz cumpleaños, mi amor. Hoy celebro tu vida, tu sonrisa y todo lo que haces más bonito solo por estar. Ojalá este detalle te recuerde cuánto te quiero.</p>
+        <span class="hint">Toca para abrir</span>
+      </button>
+    </section>
+
+    <div class="actions">
+      <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+      <button class="btn" onclick="location.href='contador.html'">Ver contador</button>
+    </div>
+  </main>
+
+  <footer>Para cuando necesites una pequeña prueba de amor.</footer>
+
+  <script>
+    document.querySelectorAll(".letter-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        card.classList.toggle("open");
+      });
+    });
+  </script>
+</body>
+</html>

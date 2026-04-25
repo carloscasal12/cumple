@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contador de Amor</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f5;
+      --blush: #ffe1ea;
+      --rose: #e83f74;
+      --rose-dark: #b51f54;
+      --ink: #471728;
+      --soft: #7a4357;
+      --card: rgba(255, 255, 255, 0.86);
+      --shadow: rgba(95, 23, 48, 0.18);
+      --gold: #d69b31;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.84), transparent 28%),
+        radial-gradient(circle at 84% 20%, rgba(255, 180, 206, 0.42), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--blush));
+    }
+
+    header {
+      text-align: center;
+      padding: 62px 20px 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.1rem, 9vw, 6.2rem);
+      line-height: 0.95;
+      color: var(--rose-dark);
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 20px auto 0;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    main {
+      width: min(1000px, 100%);
+      margin: 0 auto;
+      padding: 18px 20px 62px;
+    }
+
+    .counter-panel {
+      background: var(--card);
+      border: 1px solid rgba(181, 31, 84, 0.16);
+      border-radius: 28px;
+      padding: clamp(22px, 4vw, 38px);
+      box-shadow: 0 22px 48px var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .since {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff1f6;
+      color: var(--rose-dark);
+      font-weight: 700;
+      border: 1px solid rgba(181, 31, 84, 0.14);
+    }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .time-card {
+      min-height: 140px;
+      border-radius: 22px;
+      padding: 20px 14px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(181, 31, 84, 0.12);
+      box-shadow: 0 14px 28px rgba(95, 23, 48, 0.1);
+      display: grid;
+      align-content: center;
+      gap: 8px;
+    }
+
+    .time-card strong {
+      color: var(--rose-dark);
+      font-size: clamp(2.2rem, 7vw, 4.4rem);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-card span {
+      color: var(--soft);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+    }
+
+    .message {
+      margin: 24px 0 0;
+      color: var(--soft);
+      line-height: 1.8;
+      font-size: 1.08rem;
+      text-align: center;
+    }
+
+    .highlight {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fff3f6;
+      border: 1px dashed rgba(181, 31, 84, 0.22);
+      color: var(--ink);
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: white;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(181, 31, 84, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--rose-dark);
+      border: 1px solid rgba(181, 31, 84, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: var(--soft);
+    }
+
+    @media (max-width: 720px) {
+      header { padding-top: 42px; }
+      .counter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 460px) {
+      .counter-grid { grid-template-columns: 1fr; }
+      .time-card { min-height: 118px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <p class="eyebrow">Desde el 20 de enero de 2021</p>
+    <h1>Nuestro Tiempo Juntos</h1>
+    <p class="lead">Un contador para ver cuánto tiempo ha pasado desde el día que empezó una de las partes más bonitas de mi vida.</p>
+  </header>
+
+  <main>
+    <section class="counter-panel" aria-label="Contador desde el 20 de enero de 2021">
+      <span class="since">20 de enero de 2021</span>
+
+      <div class="counter-grid">
+        <div class="time-card">
+          <strong id="years">0</strong>
+          <span>Años</span>
+        </div>
+        <div class="time-card">
+          <strong id="months">0</strong>
+          <span>Meses</span>
+        </div>
+        <div class="time-card">
+          <strong id="days">0</strong>
+          <span>Días</span>
+        </div>
+        <div class="time-card">
+          <strong id="hours">0</strong>
+          <span>Horas</span>
+        </div>
+        <div class="time-card">
+          <strong id="minutes">0</strong>
+          <span>Minutos</span>
+        </div>
+        <div class="time-card">
+          <strong id="seconds">0</strong>
+          <span>Segundos</span>
+        </div>
+      </div>
+
+      <p class="message" id="totalDays"></p>
+      <div class="highlight">Y aun así, todo ese tiempo se me queda corto para todo lo que quiero vivir contigo.</div>
+    </section>
+
+    <div class="actions">
+      <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+      <button class="btn" onclick="location.href='abrir-cuando.html'">Abrir cuando...</button>
+    </div>
+  </main>
+
+  <footer>Desde aquel sí, cada día cuenta.</footer>
+
+  <script>
+    const startDate = new Date(2021, 0, 20, 0, 0, 0);
+
+    const fields = {
+      years: document.getElementById("years"),
+      months: document.getElementById("months"),
+      days: document.getElementById("days"),
+      hours: document.getElementById("hours"),
+      minutes: document.getElementById("minutes"),
+      seconds: document.getElementById("seconds"),
+      totalDays: document.getElementById("totalDays")
+    };
+
+    function addMonths(date, months) {
+      const result = new Date(date);
+      result.setMonth(result.getMonth() + months);
+      return result;
+    }
+
+    function getTimeParts(from, to) {
+      let months = (to.getFullYear() - from.getFullYear()) * 12;
+      months += to.getMonth() - from.getMonth();
+
+      if (addMonths(from, months) > to) {
+        months -= 1;
+      }
+
+      const cursor = addMonths(from, months);
+      let remaining = to - cursor;
+
+      const dayMs = 24 * 60 * 60 * 1000;
+      const hourMs = 60 * 60 * 1000;
+      const minuteMs = 60 * 1000;
+
+      const years = Math.floor(months / 12);
+      const restMonths = months % 12;
+      const days = Math.floor(remaining / dayMs);
+      remaining -= days * dayMs;
+      const hours = Math.floor(remaining / hourMs);
+      remaining -= hours * hourMs;
+      const minutes = Math.floor(remaining / minuteMs);
+      remaining -= minutes * minuteMs;
+      const seconds = Math.floor(remaining / 1000);
+
+      return { years, months: restMonths, days, hours, minutes, seconds };
+    }
+
+    function updateCounter() {
+      const now = new Date();
+      const parts = getTimeParts(startDate, now);
+      const totalDays = Math.floor((now - startDate) / (24 * 60 * 60 * 1000));
+
+      fields.years.textContent = parts.years;
+      fields.months.textContent = parts.months;
+      fields.days.textContent = parts.days;
+      fields.hours.textContent = parts.hours;
+      fields.minutes.textContent = parts.minutes;
+      fields.seconds.textContent = parts.seconds;
+      fields.totalDays.textContent = `Han pasado ${totalDays.toLocaleString("es-ES")} días desde que empezó nuestra historia.`;
+    }
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
+</body>
+</html>

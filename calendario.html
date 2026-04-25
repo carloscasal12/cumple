@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calendario de Momentos</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f5;
+      --blush: #ffe0ea;
+      --rose: #ec4f7f;
+      --rose-dark: #b51f54;
+      --ink: #461728;
+      --soft: #7d4358;
+      --card: rgba(255, 255, 255, 0.84);
+      --line: rgba(181, 31, 84, 0.16);
+      --shadow: rgba(95, 23, 48, 0.16);
+      --gold: #d69b31;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(255, 255, 255, 0.82), transparent 28%),
+        radial-gradient(circle at 88% 20%, rgba(255, 173, 202, 0.42), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--blush));
+    }
+
+    header {
+      text-align: center;
+      padding: 58px 20px 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.1rem, 9vw, 6.2rem);
+      line-height: 0.95;
+      color: var(--rose-dark);
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 20px auto 0;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    main {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: 18px 20px 62px;
+    }
+
+    .calendar-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: 0 20px 42px var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .calendar {
+      padding: clamp(16px, 3vw, 26px);
+    }
+
+    .month-top {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .month-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .month-jump {
+      min-width: 180px;
+      border: 1px solid rgba(181, 31, 84, 0.18);
+      border-radius: 999px;
+      padding: 11px 14px;
+      background: rgba(255, 255, 255, 0.78);
+      color: var(--ink);
+      font-family: inherit;
+      font-weight: 700;
+    }
+
+    .month-top h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--ink);
+    }
+
+    .month-top span {
+      color: var(--soft);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .weekdays,
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .weekdays {
+      margin-bottom: 8px;
+      color: var(--rose-dark);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .day {
+      min-height: 94px;
+      border: 1px solid rgba(181, 31, 84, 0.12);
+      border-radius: 18px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.68);
+      color: var(--ink);
+      text-align: left;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+    }
+
+    .day:hover,
+    .day.active {
+      transform: translateY(-3px);
+      border-color: rgba(181, 31, 84, 0.34);
+      box-shadow: 0 16px 28px rgba(95, 23, 48, 0.14);
+    }
+
+    .day.empty {
+      cursor: default;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .day.empty:hover {
+      transform: none;
+    }
+
+    .number {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 700;
+    }
+
+    .day.special .number {
+      background: linear-gradient(135deg, #ff7aa2, var(--rose-dark));
+      color: #fff;
+      box-shadow: 0 10px 18px rgba(181, 31, 84, 0.22);
+    }
+
+    .tag {
+      display: block;
+      margin-top: 10px;
+      color: var(--soft);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .day.birthday {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(255, 240, 246, 0.94)),
+        linear-gradient(135deg, rgba(214, 155, 49, 0.18), rgba(236, 79, 127, 0.16));
+      border-color: rgba(214, 155, 49, 0.45);
+    }
+
+    .day.birthday .number {
+      background: linear-gradient(135deg, var(--gold), var(--rose-dark));
+    }
+
+    .note-panel {
+      padding: clamp(20px, 3vw, 28px);
+      position: sticky;
+      top: 18px;
+    }
+
+    .note-date {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #fff1f6;
+      color: var(--rose-dark);
+      font-weight: 700;
+      border: 1px solid rgba(181, 31, 84, 0.14);
+    }
+
+    .note-panel h2 {
+      margin: 18px 0 12px;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+    }
+
+    .note-panel p {
+      margin: 0;
+      color: var(--soft);
+      line-height: 1.8;
+      font-size: 1.04rem;
+    }
+
+    .memory-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .memory-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.62);
+      border: 1px solid rgba(181, 31, 84, 0.1);
+      color: var(--soft);
+      line-height: 1.5;
+    }
+
+    .memory-item strong {
+      display: block;
+      color: var(--rose-dark);
+      margin-bottom: 2px;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: white;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(181, 31, 84, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--rose-dark);
+      border: 1px solid rgba(181, 31, 84, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .icon-btn {
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 12px 22px rgba(181, 31, 84, 0.18);
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .icon-btn:hover { transform: translateY(-2px); }
+
+    .icon-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: var(--soft);
+    }
+
+    @media (max-width: 840px) {
+      .calendar-shell { grid-template-columns: 1fr; }
+      .note-panel { position: static; }
+      .day { min-height: 82px; }
+      .tag { font-size: 0.78rem; }
+    }
+
+    @media (max-width: 560px) {
+      header { padding-top: 42px; }
+      main { padding-inline: 12px; }
+      .calendar { padding: 12px; border-radius: 18px; }
+      .weekdays { gap: 4px; font-size: 0.68rem; }
+      .days { gap: 5px; }
+      .day {
+        min-height: 60px;
+        border-radius: 12px;
+        padding: 6px;
+      }
+      .number {
+        width: 26px;
+        height: 26px;
+        font-size: 0.86rem;
+      }
+      .tag { display: none; }
+      .month-top {
+        align-items: start;
+        flex-direction: column;
+      }
+      .month-controls {
+        display: grid;
+        grid-template-columns: 44px 1fr 44px;
+      }
+      .month-jump { min-width: 0; width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <p class="eyebrow">Desde octubre de 2021</p>
+    <h1>Calendario de Momentos</h1>
+    <p class="lead">Recorre nuestros meses desde octubre de 2021 y toca los días marcados para abrir recuerdos, cumpleaños, planes y pequeñas promesas.</p>
+  </header>
+
+  <main>
+    <section class="calendar-shell" aria-label="Calendario de momentos desde octubre de 2021">
+      <div class="calendar panel">
+        <div class="month-top">
+          <h2 id="monthTitle">Abril 2026</h2>
+          <span id="monthSubtitle">Tu mes especial</span>
+        </div>
+
+        <div class="month-controls" aria-label="Cambiar de mes">
+          <button class="icon-btn" id="prevMonth" type="button" aria-label="Mes anterior">‹</button>
+          <select class="month-jump" id="monthJump" aria-label="Elegir mes"></select>
+          <button class="icon-btn" id="nextMonth" type="button" aria-label="Mes siguiente">›</button>
+        </div>
+
+        <div class="weekdays" aria-hidden="true">
+          <span>Lun</span>
+          <span>Mar</span>
+          <span>Mié</span>
+          <span>Jue</span>
+          <span>Vie</span>
+          <span>Sab</span>
+          <span>Dom</span>
+        </div>
+
+        <div class="days" id="calendarDays"></div>
+      </div>
+
+      <aside class="note-panel panel" aria-live="polite">
+        <span class="note-date" id="noteDate">29 de abril</span>
+        <h2 id="noteTitle">Feliz cumpleaños, mi amor</h2>
+        <p id="noteText">Hoy celebro tu vida, tu forma de mirar el mundo y todo lo bonito que has traído a la mía. Este calendario es una forma pequeña de recordarte que abril siempre tiene tu nombre.</p>
+
+        <div class="memory-list" aria-label="Fechas destacadas">
+          <div class="memory-item">
+            <strong>Octubre de 2021</strong>
+            El comienzo de este calendario y de muchos recuerdos guardados.
+          </div>
+          <div class="memory-item">
+            <strong>17 y 20 de enero</strong>
+            Fechas especiales que se repiten cada año.
+          </div>
+          <div class="memory-item">
+            <strong>29 de abril</strong>
+            Una fecha que vuelve cada año y siempre importa.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="actions">
+      <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+      <button class="btn" onclick="location.href='regalo.html'">Ir al regalo</button>
+    </div>
+  </main>
+
+  <footer>Hay fechas que no se olvidan porque tienen nombre propio.</footer>
+
+  <script>
+    const monthNames = [
+      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    ];
+
+    const specialDates = {
+      "2021-10-1": {
+        title: "Aquí empieza nuestro calendario",
+        text: "Octubre de 2021 queda como el primer mes de esta historia guardada aquí. Desde este punto empiezan los recuerdos que luego se hicieron enormes.",
+        tag: "Inicio"
+      },
+      "2021-10-15": {
+        title: "Primer recuerdo guardado",
+        text: "Una fecha para representar esos primeros momentos que quizá parecían normales, pero que con el tiempo se volvieron parte de nosotros.",
+        tag: "Recuerdo"
+      },
+      "2022-4-29": {
+        title: "Tu cumpleaños de 2022",
+        text: "Otro 29 de abril juntos. Aunque no todo fuera perfecto, lo importante ya estaba claro: quería seguir celebrándote.",
+        tag: "Cumpleaños",
+        birthday: true
+      },
+      "2023-4-29": {
+        title: "Tu cumpleaños de 2023",
+        text: "Un año de cambios, ilusiones y pasos importantes. Verte crecer también fue una forma preciosa de quererte.",
+        tag: "Cumpleaños",
+        birthday: true
+      },
+      "2024-4-29": {
+        title: "Tu cumpleaños de 2024",
+        text: "Otro año más contigo, con más recuerdos, más planes y más razones para tener claro que esto vale muchísimo.",
+        tag: "Cumpleaños",
+        birthday: true
+      },
+      "2025-4-29": {
+        title: "Tu cumpleaños de 2025",
+        text: "Un cumpleaños más para guardar. De esos que no se quedan solo en regalos, sino en la forma en la que seguimos eligiéndonos.",
+        tag: "Cumpleaños",
+        birthday: true
+      },
+      "2026-4-10": {
+        title: "Un plan para nosotros",
+        text: "Hoy queda reservado para un plan tranquilo: caminar, cenar algo rico o simplemente estar juntos sin prisa.",
+        tag: "Plan bonito"
+      },
+      "2026-4-20": {
+        title: "Preparando tu sorpresa",
+        text: "Aquí empiezan los nervios bonitos: pensar en tu cara, cuidar cada detalle y guardar el secreto hasta el final.",
+        tag: "Sorpresa"
+      },
+      "2026-4-25": {
+        title: "Cuenta atrás",
+        text: "Quedan pocos días. Ojalá pudiera envolver todo lo que siento, pero mientras tanto lo voy dejando aquí, día por día.",
+        tag: "Casi llega"
+      },
+      "2026-4-29": {
+        title: "Feliz cumpleaños, mi amor",
+        text: "Hoy celebro tu vida, tu forma de mirar el mundo y todo lo bonito que has traído a la mía. Este calendario es una forma pequeña de recordarte que abril siempre tiene tu nombre.",
+        tag: "Tu día",
+        birthday: true
+      }
+    };
+
+    for (let year = 2022; year <= 2026; year += 1) {
+      specialDates[`${year}-1-20`] = {
+        title: `20 de enero de ${year}`,
+        text: year === 2022
+          ? "El día que te pedí salir y fue la mejor decisión de mi vida."
+          : `Otro 20 de enero juntos. Desde aquel 20 de enero de 2022, sigo pensando que pedirte salir fue la mejor decisión de mi vida.`,
+        tag: "Aniversario"
+      };
+
+      if (!specialDates[`${year}-4-29`]) {
+        specialDates[`${year}-4-29`] = {
+          title: `Tu cumpleaños de ${year}`,
+          text: "Otro 29 de abril juntos, otro año más celebrando tu vida y todo lo bonito que traes a la mía.",
+          tag: "Cumpleaños",
+          birthday: true
+        };
+      }
+    }
+
+    specialDates["2024-1-17"] = {
+      title: "Viaje a Burgos",
+      text: "17 de enero de 2024: nuestro viaje a Burgos, otro recuerdo bonito para guardar en este calendario.",
+      tag: "Viaje"
+    };
+
+    specialDates["2025-1-17"] = {
+      title: "Viaje a Soria",
+      text: "17 de enero de 2025: nuestro viaje a Soria, una escapada más en nuestra historia.",
+      tag: "Viaje"
+    };
+
+    specialDates["2026-1-17"] = {
+      title: "Viaje a Roma",
+      text: "17 de enero de 2026: nuestro viaje a Roma, un sueño compartido y una ciudad para recordar siempre.",
+      tag: "Viaje"
+    };
+
+    const daysContainer = document.getElementById("calendarDays");
+    const monthTitle = document.getElementById("monthTitle");
+    const monthSubtitle = document.getElementById("monthSubtitle");
+    const monthJump = document.getElementById("monthJump");
+    const prevMonth = document.getElementById("prevMonth");
+    const nextMonth = document.getElementById("nextMonth");
+    const noteDate = document.getElementById("noteDate");
+    const noteTitle = document.getElementById("noteTitle");
+    const noteText = document.getElementById("noteText");
+    const months = [];
+    let currentMonthIndex = 0;
+
+    function dateKey(year, month, day) {
+      return `${year}-${month + 1}-${day}`;
+    }
+
+    function makeMonths() {
+      for (let year = 2021; year <= 2026; year += 1) {
+        const firstMonth = year === 2021 ? 9 : 0;
+        const lastMonth = year === 2026 ? 3 : 11;
+
+        for (let month = firstMonth; month <= lastMonth; month += 1) {
+          months.push({ year, month });
+        }
+      }
+    }
+
+    function fillMonthJump() {
+      months.forEach(({ year, month }, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = `${monthNames[month]} ${year}`;
+        monthJump.appendChild(option);
+      });
+    }
+
+    function selectDay(day, button, year, month) {
+      const memory = specialDates[dateKey(year, month, day)] || {
+        title: "Un día más queriéndote",
+        text: "Este día no necesita una gran historia para importar. También cuenta como uno de esos días normales en los que elegirte sigue siendo fácil."
+      };
+
+      document.querySelectorAll(".day.active").forEach((el) => el.classList.remove("active"));
+      button.classList.add("active");
+      noteDate.textContent = `${day} de ${monthNames[month].toLowerCase()} de ${year}`;
+      noteTitle.textContent = memory.title;
+      noteText.textContent = memory.text;
+    }
+
+    function setDefaultNote(year, month) {
+      const monthSpecialDates = Object.entries(specialDates)
+        .filter(([key]) => key.startsWith(`${year}-${month + 1}-`));
+
+      if (monthSpecialDates.length) {
+        const [key, memory] = monthSpecialDates[monthSpecialDates.length - 1];
+        const day = Number(key.split("-")[2]);
+        noteDate.textContent = `${day} de ${monthNames[month].toLowerCase()} de ${year}`;
+        noteTitle.textContent = memory.title;
+        noteText.textContent = memory.text;
+        return;
+      }
+
+      noteDate.textContent = `${monthNames[month]} ${year}`;
+      noteTitle.textContent = "Un mes más de nosotros";
+      noteText.textContent = "Aunque este mes no tenga una fecha marcada todavía, también forma parte del camino desde octubre de 2021 hasta hoy.";
+    }
+
+    function buildCalendar(index) {
+      const { year, month } = months[index];
+      const firstDay = new Date(year, month, 1).getDay();
+      const blanksBeforeMonth = (firstDay + 6) % 7;
+      const totalDays = new Date(year, month + 1, 0).getDate();
+
+      daysContainer.innerHTML = "";
+      monthTitle.textContent = `${monthNames[month]} ${year}`;
+      monthSubtitle.textContent = index === 0 ? "Aquí empieza" : "Nuestra historia";
+      monthJump.value = index;
+      prevMonth.disabled = index === 0;
+      nextMonth.disabled = index === months.length - 1;
+      setDefaultNote(year, month);
+
+      for (let i = 0; i < blanksBeforeMonth; i += 1) {
+        const empty = document.createElement("div");
+        empty.className = "day empty";
+        daysContainer.appendChild(empty);
+      }
+
+      for (let day = 1; day <= totalDays; day += 1) {
+        const memory = specialDates[dateKey(year, month, day)];
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "day";
+        button.setAttribute("aria-label", `${day} de ${monthNames[month]} de ${year}`);
+
+        if (memory) button.classList.add("special");
+        if (memory?.birthday) button.classList.add("birthday");
+
+        button.innerHTML = `
+          <span class="number">${day}</span>
+          ${memory ? `<span class="tag">${memory.tag}</span>` : ""}
+        `;
+
+        button.addEventListener("click", () => selectDay(day, button, year, month));
+        daysContainer.appendChild(button);
+      }
+
+      const activeKey = Object.keys(specialDates)
+        .filter((key) => key.startsWith(`${year}-${month + 1}-`))
+        .pop();
+
+      if (activeKey) {
+        const activeDay = Number(activeKey.split("-")[2]);
+        daysContainer.querySelectorAll(".day:not(.empty)")[activeDay - 1]?.classList.add("active");
+      }
+    }
+
+    makeMonths();
+    fillMonthJump();
+    currentMonthIndex = months.length - 1;
+    buildCalendar(currentMonthIndex);
+
+    prevMonth.addEventListener("click", () => {
+      if (currentMonthIndex === 0) return;
+      currentMonthIndex -= 1;
+      buildCalendar(currentMonthIndex);
+    });
+
+    nextMonth.addEventListener("click", () => {
+      if (currentMonthIndex === months.length - 1) return;
+      currentMonthIndex += 1;
+      buildCalendar(currentMonthIndex);
+    });
+
+    monthJump.addEventListener("change", () => {
+      currentMonthIndex = Number(monthJump.value);
+      buildCalendar(currentMonthIndex);
+    });
+  </script>
+</body>
+</html>

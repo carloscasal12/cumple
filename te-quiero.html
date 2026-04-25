@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Te Quiero Infinito</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f5;
+      --blush: #ffe0ea;
+      --rose: #e83f74;
+      --rose-dark: #b51f54;
+      --ink: #471728;
+      --soft: #7a4357;
+      --card: rgba(255, 255, 255, 0.86);
+      --shadow: rgba(95, 23, 48, 0.18);
+      --gold: #d69b31;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      color: var(--ink);
+      font-family: "Playfair Display", Georgia, serif;
+      background:
+        radial-gradient(circle at 16% 14%, rgba(255, 255, 255, 0.86), transparent 28%),
+        radial-gradient(circle at 84% 24%, rgba(255, 166, 194, 0.36), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--blush));
+      overflow-x: hidden;
+    }
+
+    main {
+      width: min(920px, 100%);
+      margin: auto;
+      padding: 42px 20px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.2rem, 9vw, 6.4rem);
+      line-height: 0.95;
+      color: var(--rose-dark);
+    }
+
+    .lead {
+      max-width: 700px;
+      margin: 20px auto 28px;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    .love-card {
+      position: relative;
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      padding: clamp(26px, 5vw, 48px);
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid rgba(181, 31, 84, 0.16);
+      box-shadow: 0 22px 48px var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .counter {
+      display: inline-grid;
+      place-items: center;
+      min-width: 76px;
+      height: 42px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--gold), var(--rose-dark));
+      font-weight: 700;
+      margin-bottom: 18px;
+      box-shadow: 0 12px 22px rgba(181, 31, 84, 0.18);
+    }
+
+    .love-message {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.65rem, 5vw, 3rem);
+      line-height: 1.25;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .love-message.pop {
+      animation: pop 320ms ease;
+    }
+
+    .small-note {
+      margin: 20px 0 0;
+      color: var(--soft);
+      line-height: 1.7;
+      font-size: 1.02rem;
+    }
+
+    .spark {
+      position: absolute;
+      color: var(--rose-dark);
+      font-size: 1.2rem;
+      opacity: 0;
+      pointer-events: none;
+      animation: spark 1200ms ease forwards;
+    }
+
+    .actions {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(181, 31, 84, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--rose-dark);
+      border: 1px solid rgba(181, 31, 84, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    @keyframes pop {
+      0% { transform: scale(0.95); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes spark {
+      0% { transform: translateY(0) scale(0.7); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-120px) scale(1.4); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <p class="eyebrow">Una forma distinta cada vez</p>
+    <h1>Te Quiero Infinito</h1>
+    <p class="lead">Pulsa todas las veces que quieras. El mensaje cambia, pero la idea es siempre la misma.</p>
+
+    <section class="love-card" id="loveCard" aria-live="polite">
+      <div>
+        <span class="counter" id="counter">0</span>
+        <p class="love-message" id="loveMessage">Te quiero.</p>
+        <p class="small-note">No hay un número suficiente, pero podemos intentarlo.</p>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="btn" id="loveButton" type="button">Decir te quiero</button>
+      <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+    </div>
+  </main>
+
+  <script>
+    const loveMessages = [
+      "Te quiero.",
+      "Te quiero muchísimo.",
+      "Te quiero más de lo que sé explicar.",
+      "Te quiero en los días fáciles y en los difíciles.",
+      "Te quiero con calma, con ganas y con futuro.",
+      "Te quiero como mi persona favorita.",
+      "Te quiero desde aquel 20 de enero.",
+      "Te quiero para seguir haciendo recuerdos.",
+      "Te quiero en Burgos, en Soria, en Roma y donde sea.",
+      "Te quiero infinito."
+    ];
+
+    const card = document.getElementById("loveCard");
+    const button = document.getElementById("loveButton");
+    const counter = document.getElementById("counter");
+    const message = document.getElementById("loveMessage");
+    let clicks = 0;
+
+    function createSpark() {
+      const spark = document.createElement("span");
+      spark.className = "spark";
+      spark.textContent = "♥";
+      spark.style.left = `${18 + Math.random() * 64}%`;
+      spark.style.bottom = `${40 + Math.random() * 60}px`;
+      card.appendChild(spark);
+      setTimeout(() => spark.remove(), 1300);
+    }
+
+    button.addEventListener("click", () => {
+      clicks += 1;
+      counter.textContent = clicks;
+      message.textContent = loveMessages[clicks % loveMessages.length];
+      message.classList.remove("pop");
+      void message.offsetWidth;
+      message.classList.add("pop");
+      createSpark();
+    });
+  </script>
+</body>
+</html>

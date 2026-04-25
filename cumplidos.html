@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generador de Cumplidos</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f5;
+      --blush: #ffe0ea;
+      --rose: #e83f74;
+      --rose-dark: #b51f54;
+      --ink: #471728;
+      --soft: #7a4357;
+      --card: rgba(255, 255, 255, 0.86);
+      --shadow: rgba(95, 23, 48, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      color: var(--ink);
+      font-family: "Playfair Display", Georgia, serif;
+      background:
+        radial-gradient(circle at 16% 14%, rgba(255, 255, 255, 0.86), transparent 28%),
+        radial-gradient(circle at 84% 24%, rgba(255, 166, 194, 0.36), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--blush));
+    }
+
+    main {
+      width: min(920px, 100%);
+      margin: auto;
+      padding: 42px 20px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.2rem, 9vw, 6.4rem);
+      line-height: 0.95;
+      color: var(--rose-dark);
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 20px auto 28px;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    .compliment-card {
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      padding: clamp(26px, 5vw, 48px);
+      border-radius: 28px;
+      background: var(--card);
+      border: 1px solid rgba(181, 31, 84, 0.16);
+      box-shadow: 0 22px 48px var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .compliment {
+      margin: 0;
+      max-width: 720px;
+      color: var(--ink);
+      font-size: clamp(1.55rem, 4vw, 2.65rem);
+      line-height: 1.35;
+    }
+
+    .actions {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(181, 31, 84, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--rose-dark);
+      border: 1px solid rgba(181, 31, 84, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+  </style>
+</head>
+
+<body>
+  <main>
+    <p class="eyebrow">Un piropo cuando lo necesites</p>
+    <h1>Generador de Cumplidos</h1>
+    <p class="lead">Pulsa el botón y aparecerá una frase distinta para recordarte todo lo bonito que veo en ti.</p>
+
+    <section class="compliment-card" aria-live="polite">
+      <p class="compliment" id="compliment">Tienes una forma de iluminar los días que no se aprende, se lleva dentro.</p>
+    </section>
+
+    <div class="actions">
+      <button class="btn" id="newCompliment" type="button">Nuevo cumplido</button>
+      <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+    </div>
+  </main>
+
+  <script>
+    const compliments = [
+      "Tienes una forma de iluminar los días que no se aprende, se lleva dentro.",
+      "Tu sonrisa sigue siendo uno de mis lugares favoritos.",
+      "Me encanta cómo haces que lo sencillo parezca especial.",
+      "Eres preciosa, pero lo más bonito de ti es cómo haces sentir a los demás.",
+      "Admiro tu forma de seguir adelante incluso cuando las cosas pesan.",
+      "Contigo cualquier plan pequeño puede convertirse en un recuerdo enorme.",
+      "Tienes una risa que arregla más de lo que imaginas.",
+      "Me gusta tu manera de cuidar, de mirar y de estar.",
+      "Eres mi casualidad favorita y mi decisión más clara.",
+      "Hay algo en ti que hace que volver a verte siempre me ilusione."
+    ];
+
+    const compliment = document.getElementById("compliment");
+    const button = document.getElementById("newCompliment");
+    let lastIndex = 0;
+
+    button.addEventListener("click", () => {
+      let index = Math.floor(Math.random() * compliments.length);
+      if (compliments.length > 1) {
+        while (index === lastIndex) {
+          index = Math.floor(Math.random() * compliments.length);
+        }
+      }
+      lastIndex = index;
+      compliment.textContent = compliments[index];
+    });
+  </script>
+</body>
+</html>
