@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Te Elijo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+    :root { --bg:#fff9f5; --bg2:#ffe0ea; --rose:#b51f54; --ink:#471728; --soft:#7a4357; --card:rgba(255,255,255,.86); --shadow:rgba(95,23,48,.18); }
+    * { box-sizing:border-box; } body { margin:0; min-height:100vh; display:grid; font-family:"Playfair Display", Georgia, serif; color:var(--ink); background:radial-gradient(circle at 14% 12%, rgba(255,255,255,.82), transparent 28%), linear-gradient(145deg,var(--bg),var(--bg2)); }
+    main { width:min(920px,100%); margin:auto; padding:48px 20px; text-align:center; } .eyebrow { margin:0 0 12px; text-transform:uppercase; letter-spacing:.16em; font-size:.78rem; color:var(--soft); }
+    h1 { margin:0; font-family:"Great Vibes", cursive; font-size:clamp(3.4rem,10vw,7rem); line-height:.9; color:var(--rose); }
+    .letter { margin:28px auto 0; padding:clamp(24px,5vw,46px); border-radius:28px; background:var(--card); border:1px solid rgba(181,31,84,.16); box-shadow:0 22px 48px var(--shadow); text-align:left; }
+    .letter p { margin:0 0 16px; color:var(--soft); line-height:1.85; font-size:1.08rem; } .letter p:last-child { margin-bottom:0; color:var(--ink); font-weight:700; }
+    .actions { margin-top:28px; } button { border:0; border-radius:999px; padding:13px 22px; background:linear-gradient(135deg,#ff6493,var(--rose)); color:#fff; font-family:inherit; font-weight:700; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Una decisión que repetiría</p>
+    <h1>Te Elijo</h1>
+    <section class="letter">
+      <p>Te elijo porque contigo no siento que tenga que ser perfecto, solo sincero.</p>
+      <p>Te elijo porque has estado en momentos bonitos y también en otros más difíciles, y aun así sigues siendo una de mis certezas favoritas.</p>
+      <p>Te elijo por tu forma de sonreír, por cómo cuidas, por cómo te ilusionas y por todas esas cosas pequeñas que haces sin darte cuenta.</p>
+      <p>Te elijo no solo por lo que hemos vivido, sino por todo lo que todavía quiero vivir contigo.</p>
+      <p>Y si tuviera que volver al principio, sabiendo todo lo que sé ahora, volvería a elegirte.</p>
+    </section>
+    <div class="actions"><button onclick="location.href='index.html'">Volver al inicio</button></div>
+  </main>
+</body>
+</html>

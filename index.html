@@ -12,6 +12,7 @@
       font-family: Arial, sans-serif;
       background: #fff0f3;
       color: #333;
+      transition: background 0.5s ease, color 0.5s ease;
     }
 
     .hero {
@@ -19,6 +20,9 @@
       padding: 60px 20px;
       background: linear-gradient(135deg, #ff6b81, #ff9a9e);
       color: white;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.5s ease;
     }
 
     .eyebrow {
@@ -42,6 +46,7 @@
       margin: 10px 0;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       text-align: center;
+      transition: background 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
     }
 
     .grid {
@@ -71,12 +76,101 @@
       padding: 20px;
       font-size: 14px;
       color: #777;
+      transition: color 0.5s ease;
+    }
+
+    .night-toggle {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 20;
+      border-radius: 999px;
+      box-shadow: 0 12px 28px rgba(35, 15, 35, 0.24);
+    }
+
+    .night-sky {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.5s ease;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255, 244, 196, 0.9) 0 2px, transparent 3px),
+        radial-gradient(circle at 76% 22%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+        radial-gradient(circle at 62% 58%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 28% 76%, rgba(255, 255, 255, 0.75) 0 1px, transparent 2px),
+        radial-gradient(circle at 88% 74%, rgba(255, 220, 235, 0.8) 0 2px, transparent 3px);
+      background-size: 260px 260px, 210px 210px, 180px 180px, 230px 230px, 300px 300px;
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+
+    .moon {
+      position: absolute;
+      top: 26px;
+      right: clamp(24px, 9vw, 110px);
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: #fff5c7;
+      box-shadow: 0 0 34px rgba(255, 245, 199, 0.8);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 22px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #18142d;
+    }
+
+    body.night-mode {
+      background: radial-gradient(circle at 50% 0%, #38244d 0%, #18142d 42%, #0f1024 100%);
+      color: #fff3f8;
+    }
+
+    body.night-mode .night-sky {
+      opacity: 1;
+    }
+
+    body.night-mode .hero {
+      background: linear-gradient(135deg, rgba(35, 25, 67, 0.96), rgba(121, 50, 92, 0.92));
+    }
+
+    body.night-mode .moon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    body.night-mode .card {
+      background: rgba(255, 246, 251, 0.1);
+      color: #fff6fb;
+      border: 1px solid rgba(255, 210, 231, 0.18);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(10px);
+    }
+
+    body.night-mode footer {
+      color: #f4c7dc;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.42; transform: translateY(0); }
+      to { opacity: 0.9; transform: translateY(-8px); }
     }
   </style>
 </head>
 
 <body>
+  <div class="night-sky" aria-hidden="true"></div>
   <header class="hero">
+    <div class="moon" aria-hidden="true"></div>
     <p class="eyebrow">Tema: Cumpleaños</p>
     <h1>Feliz cumpleaños al amor de mi vida</h1>
     <p class="lead">Historias que se sienten, recuerdos que se quedan.</p>
@@ -161,6 +255,108 @@
         <p>Botón de te quiero infinito</p>
         <button onclick="location.href='te-quiero.html'">Decir te quiero</button>
       </article>
+
+      <article class="card">
+        <h3>13</h3>
+        <p>Cosas que haces sin darte cuenta</p>
+        <button onclick="location.href='sin-darte-cuenta.html'">Ver detalles</button>
+      </article>
+
+      <article class="card">
+        <h3>14</h3>
+        <p>Postal de cumpleaños animada</p>
+        <button onclick="location.href='postal.html'">Abrir postal</button>
+      </article>
+
+      <article class="card">
+        <h3>15</h3>
+        <p>Mensajes bonitos según la hora</p>
+        <button onclick="location.href='mensajes-hora.html'">Ver mensajes</button>
+      </article>
+
+      <article class="card">
+        <h3>16</h3>
+        <p>Semáforo emocional para cada día</p>
+        <button onclick="location.href='semaforo-emocional.html'">Abrir semáforo</button>
+      </article>
+
+      <article class="card">
+        <h3>17</h3>
+        <p>Caja de mini victorias</p>
+        <button onclick="location.href='mini-victorias.html'">Ver victorias</button>
+      </article>
+
+      <article class="card">
+        <h3>18</h3>
+        <p>Una página para decirte que te elijo</p>
+        <button onclick="location.href='te-elijo.html'">Leer te elijo</button>
+      </article>
+
+      <article class="card">
+        <h3>19</h3>
+        <p>Galería de nuestras mejores frases</p>
+        <button onclick="location.href='frases.html'">Ver frases</button>
+      </article>
+
+      <article class="card">
+        <h3>20</h3>
+        <p>Lo que nunca te digo suficiente</p>
+        <button onclick="location.href='nunca-te-digo.html'">Leerlo</button>
+      </article>
+
+      <article class="card">
+        <h3>21</h3>
+        <p>Cosas que quiero recordar siempre</p>
+        <button onclick="location.href='recordar-siempre.html'">Ver recuerdos</button>
+      </article>
+
+      <article class="card">
+        <h3>22</h3>
+        <p>Panel de recuerdos desbloqueables</p>
+        <button onclick="location.href='recuerdos-desbloqueables.html'">Desbloquear</button>
+      </article>
+
+      <article class="card">
+        <h3>23</h3>
+        <p>Lo que me enseñaste sin darte cuenta</p>
+        <button onclick="location.href='lo-que-me-ensenaste.html'">Ver enseñanzas</button>
+      </article>
+
+      <article class="card">
+        <h3>24</h3>
+        <p>Tus superpoderes favoritos</p>
+        <button onclick="location.href='superpoderes.html'">Ver poderes</button>
+      </article>
+
+      <article class="card">
+        <h3>25</h3>
+        <p>Si el mundo pesa, ven aquí</p>
+        <button onclick="location.href='si-el-mundo-pesa.html'">Abrir calma</button>
+      </article>
+
+      <article class="card">
+        <h3>26</h3>
+        <p>Momentos que me gustaría vivir contigo</p>
+        <button onclick="location.href='momentos-por-vivir.html'">Ver momentos</button>
+      </article>
+
+      <article class="card">
+        <h3>27</h3>
+        <p>Todo lo que cabe en un te quiero</p>
+        <button onclick="location.href='cabe-en-te-quiero.html'">Leer te quiero</button>
+      </article>
+
+      <article class="card">
+        <h3>28</h3>
+        <p>Si has llegado hasta aquí...</p>
+        <button onclick="location.href='si-has-llegado.html'">Leer mensaje</button>
+      </article>
+
+      <article class="card">
+        <h3>29</h3>
+        <p>Créditos finales de nuestra historia</p>
+        <button onclick="location.href='creditos.html'">Ver créditos</button>
+      </article>
     </section>
 
     <!-- Botón especial -->
@@ -172,5 +368,23 @@
   </main>
 
   <footer>El amor está en los pequeños detalles.</footer>
+  <button class="night-toggle" id="nightToggle" type="button">Modo noche</button>
+
+  <script>
+    const nightToggle = document.getElementById("nightToggle");
+    const savedMode = localStorage.getItem("romanticNightMode");
+
+    function setNightMode(enabled) {
+      document.body.classList.toggle("night-mode", enabled);
+      nightToggle.textContent = enabled ? "Modo día" : "Modo noche";
+      localStorage.setItem("romanticNightMode", enabled ? "on" : "off");
+    }
+
+    setNightMode(savedMode === "on");
+
+    nightToggle.addEventListener("click", () => {
+      setNightMode(!document.body.classList.contains("night-mode"));
+    });
+  </script>
 </body>
 </html>

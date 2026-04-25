@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cosas Que Haces Sin Darte Cuenta</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --cream: #fff9f5;
+      --blush: #ffe0ea;
+      --rose: #e83f74;
+      --rose-dark: #b51f54;
+      --ink: #471728;
+      --soft: #7a4357;
+      --card: rgba(255, 255, 255, 0.84);
+      --shadow: rgba(95, 23, 48, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.82), transparent 28%),
+        radial-gradient(circle at 86% 24%, rgba(255, 166, 194, 0.36), transparent 30%),
+        linear-gradient(145deg, var(--cream), var(--blush));
+    }
+
+    header {
+      text-align: center;
+      padding: 58px 20px 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.78rem;
+      color: var(--soft);
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3rem, 9vw, 6rem);
+      line-height: 0.95;
+      color: var(--rose-dark);
+    }
+
+    .lead {
+      max-width: 730px;
+      margin: 20px auto 0;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    main {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      padding: 18px 20px 62px;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+    }
+
+    .detail-card {
+      min-height: 225px;
+      border: 1px solid rgba(232, 63, 116, 0.18);
+      border-radius: 24px;
+      padding: 22px;
+      background: var(--card);
+      box-shadow: 0 18px 38px var(--shadow);
+      backdrop-filter: blur(12px);
+      display: grid;
+      align-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .detail-card:hover,
+    .detail-card.open {
+      transform: translateY(-5px);
+      box-shadow: 0 24px 46px rgba(95, 23, 48, 0.24);
+      border-color: rgba(232, 63, 116, 0.36);
+    }
+
+    .detail-number {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(135deg, #ff7aa2, var(--rose-dark));
+      font-weight: 700;
+      box-shadow: 0 12px 20px rgba(181, 31, 84, 0.2);
+    }
+
+    .detail-card h2 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: var(--ink);
+    }
+
+    .detail-card p {
+      margin: 0;
+      color: var(--soft);
+      line-height: 1.7;
+      display: none;
+    }
+
+    .detail-card.open p { display: block; }
+
+    .hint {
+      margin: 0;
+      color: var(--rose-dark);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .detail-card.open .hint { display: none; }
+
+    .note {
+      margin-top: 20px;
+      padding: clamp(20px, 4vw, 30px);
+      border-radius: 24px;
+      background: #fff3f6;
+      border: 1px dashed rgba(181, 31, 84, 0.22);
+      color: var(--ink);
+      line-height: 1.75;
+      text-align: center;
+      font-size: 1.08rem;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, #ff6493, var(--rose-dark));
+      color: white;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(181, 31, 84, 0.22);
+      transition: transform 180ms ease;
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--rose-dark);
+      border: 1px solid rgba(181, 31, 84, 0.18);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: var(--soft);
+    }
+
+    @media (max-width: 640px) {
+      header { padding-top: 42px; }
+      .detail-card { min-height: 190px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <p class="eyebrow">Detalles pequeños, amor enorme</p>
+    <h1>Cosas Que Haces Sin Darte Cuenta</h1>
+    <p class="lead">Hay gestos tuyos que quizá para ti son normales, pero para mí se quedan guardados como pequeñas pruebas de lo bonita que eres.</p>
+  </header>
+
+  <main>
+    <section class="details-grid" aria-label="Cosas que haces sin darte cuenta">
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">01</span>
+        <h2>Sonreír sin darte cuenta</h2>
+        <p>A veces sonríes por algo pequeño y a mí se me arregla el día sin que tú sepas que acaba de pasar.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">02</span>
+        <h2>Cuidar sin hacer ruido</h2>
+        <p>Tienes detalles que parecen simples, pero dicen muchísimo. Estás pendiente de cosas que otras personas ni verían.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">03</span>
+        <h2>Mirarme de esa forma</h2>
+        <p>Hay miradas tuyas que no necesitan explicación. Me hacen sentir querido, elegido y en casa.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">04</span>
+        <h2>Ilusionarte por cosas pequeñas</h2>
+        <p>Me encanta cuando algo te hace ilusión. Verte feliz por un plan, un regalo o una tontería me parece precioso.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">05</span>
+        <h2>Hacerme reír sin intentarlo</h2>
+        <p>Muchas veces ni buscas hacer gracia, pero tienes una forma tan tuya de decir o hacer cosas que me gana totalmente.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">06</span>
+        <h2>Ser tú conmigo</h2>
+        <p>Me gusta cuando estás cómoda, cuando te muestras como eres, cuando no tienes que fingir nada. Esa versión tuya es mi favorita.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">07</span>
+        <h2>Acordarte de detalles</h2>
+        <p>Cuando recuerdas algo que dije, algo que me gusta o algo que me importa, me haces sentir escuchado de verdad.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+
+      <article class="detail-card" tabindex="0">
+        <span class="detail-number">08</span>
+        <h2>Convertir un día normal en recuerdo</h2>
+        <p>Contigo no hace falta que pase algo enorme. A veces basta una tarde cualquiera para que yo quiera guardarla.</p>
+        <span class="hint">Toca para leer</span>
+      </article>
+    </section>
+
+    <div class="note">Lo más bonito es que muchas de estas cosas ni las preparas. Simplemente salen de ti, y por eso significan tanto.</div>
+
+    <div class="actions">
+      <button class="btn secondary" onclick="location.href='index.html'">Volver al inicio</button>
+      <button class="btn" onclick="location.href='razones.html'">Ver razones</button>
+    </div>
+  </main>
+
+  <footer>Hay detalles tuyos que se quedan viviendo conmigo.</footer>
+
+  <script>
+    document.querySelectorAll(".detail-card").forEach((card) => {
+      const toggle = () => card.classList.toggle("open");
+      card.addEventListener("click", toggle);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggle();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

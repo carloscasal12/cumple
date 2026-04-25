@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Créditos Finales</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+
+    :root {
+      --night: #140f25;
+      --night-2: #2a173b;
+      --rose: #ff7aa2;
+      --gold: #f5c86b;
+      --text: #fff7fb;
+      --soft: #f1c6d8;
+      --panel: rgba(255, 255, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Playfair Display", Georgia, serif;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(255, 122, 162, 0.22), transparent 28%),
+        radial-gradient(circle at 78% 20%, rgba(245, 200, 107, 0.14), transparent 26%),
+        linear-gradient(145deg, var(--night), var(--night-2));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 16% 24%, rgba(255,255,255,.9) 0 1px, transparent 2px),
+        radial-gradient(circle at 74% 18%, rgba(255,255,255,.7) 0 1px, transparent 2px),
+        radial-gradient(circle at 58% 72%, rgba(255,255,255,.65) 0 1px, transparent 2px),
+        radial-gradient(circle at 88% 64%, rgba(255,255,255,.8) 0 1px, transparent 2px);
+      background-size: 220px 220px, 260px 260px, 180px 180px, 300px 300px;
+      opacity: 0.7;
+      animation: stars 5s ease-in-out infinite alternate;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(920px, 100%);
+      margin: 0 auto;
+      padding: 58px 20px 46px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--soft);
+      font-size: 0.78rem;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-size: clamp(3.3rem, 10vw, 7rem);
+      line-height: 0.9;
+      color: var(--gold);
+      text-shadow: 0 0 28px rgba(245, 200, 107, 0.3);
+    }
+
+    .lead {
+      max-width: 680px;
+      margin: 20px auto 32px;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.08rem;
+    }
+
+    .credits {
+      display: grid;
+      gap: 14px;
+      text-align: left;
+    }
+
+    .credit {
+      padding: 20px;
+      border-radius: 22px;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(12px);
+    }
+
+    .credit span {
+      display: block;
+      color: var(--rose);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .credit strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.35rem;
+      line-height: 1.35;
+    }
+
+    .final {
+      margin: 30px auto 0;
+      max-width: 720px;
+      padding: 28px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px dashed rgba(245, 200, 107, 0.4);
+    }
+
+    .final p {
+      margin: 0;
+      color: var(--soft);
+      line-height: 1.75;
+      font-size: 1.1rem;
+    }
+
+    .continue {
+      display: block;
+      margin-top: 18px;
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      color: var(--gold);
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      line-height: 1;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 13px 22px;
+      background: linear-gradient(135deg, var(--rose), #b51f54);
+      color: #fff;
+      font-family: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.24);
+    }
+
+    .secondary {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--text);
+    }
+
+    @keyframes stars {
+      from { opacity: 0.45; transform: translateY(0); }
+      to { opacity: 0.9; transform: translateY(-8px); }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <p class="eyebrow">Sección 29</p>
+    <h1>Créditos Finales</h1>
+    <p class="lead">Como si todo esto fuera una película hecha de recuerdos, fechas, viajes, cumpleaños y muchas ganas de seguir.</p>
+
+    <section class="credits" aria-label="Créditos de nuestra historia">
+      <article class="credit">
+        <span>Protagonistas</span>
+        <strong>Nosotros dos, intentando querernos bonito cada día.</strong>
+      </article>
+
+      <article class="credit">
+        <span>Fecha clave</span>
+        <strong>20 de enero: el día que empezó una de las mejores decisiones de mi vida.</strong>
+      </article>
+
+      <article class="credit">
+        <span>Escenas favoritas</span>
+        <strong>Burgos, Soria, Roma, tus cumpleaños y todos los días normales que contigo se vuelven especiales.</strong>
+      </article>
+
+      <article class="credit">
+        <span>Banda sonora</span>
+        <strong>Todas las canciones que nos recuerdan quiénes somos cuando estamos juntos.</strong>
+      </article>
+
+      <article class="credit">
+        <span>Dirección artística</span>
+        <strong>Tu sonrisa, tus detalles, tus ilusiones y esa forma tuya de hacerlo todo un poco más bonito.</strong>
+      </article>
+    </section>
+
+    <section class="final">
+      <p>Gracias por ser parte de mi historia favorita. Esta página parece un final, pero en realidad solo es una pausa bonita antes de todo lo que nos queda.</p>
+      <span class="continue">Continuará...</span>
+    </section>
+
+    <div class="actions">
+      <button onclick="location.href='index.html'">Volver al inicio</button>
+      <button class="secondary" onclick="location.href='futuro.html'">Ver nuestro futuro</button>
+    </div>
+  </main>
+</body>
+</html>

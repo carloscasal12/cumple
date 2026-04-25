@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Semáforo Emocional</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+    :root { --bg:#fff9f5; --bg2:#ffe0ea; --rose:#b51f54; --ink:#471728; --soft:#7a4357; --card:rgba(255,255,255,.86); --shadow:rgba(95,23,48,.18); }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:"Playfair Display", Georgia, serif; color:var(--ink); background:radial-gradient(circle at 14% 12%, rgba(255,255,255,.82), transparent 28%), linear-gradient(145deg,var(--bg),var(--bg2)); }
+    main { width:min(980px,100%); margin:0 auto; padding:54px 20px; text-align:center; }
+    .eyebrow { margin:0 0 12px; text-transform:uppercase; letter-spacing:.16em; font-size:.78rem; color:var(--soft); }
+    h1 { margin:0; font-family:"Great Vibes", cursive; font-size:clamp(3.1rem,9vw,6.2rem); line-height:.95; color:var(--rose); }
+    .lead { max-width:720px; margin:20px auto 28px; color:var(--soft); line-height:1.75; font-size:1.08rem; }
+    .panel { padding:clamp(24px,5vw,42px); border-radius:28px; background:var(--card); border:1px solid rgba(181,31,84,.16); box-shadow:0 22px 48px var(--shadow); }
+    .lights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .light { border:0; min-height:155px; border-radius:24px; padding:18px; color:#fff; font-family:inherit; font-weight:700; cursor:pointer; box-shadow:0 14px 26px rgba(0,0,0,.12); transition:transform .18s ease; }
+    .light:hover { transform:translateY(-4px); }
+    .green { background:linear-gradient(135deg,#36b37e,#147d5a); }
+    .yellow { background:linear-gradient(135deg,#f8c14a,#d48718); }
+    .red { background:linear-gradient(135deg,#ff6b81,#b51f54); }
+    .light strong { display:block; font-size:1.35rem; margin-bottom:8px; }
+    .answer { margin:22px 0 0; padding:20px; border-radius:20px; background:#fff3f6; border:1px dashed rgba(181,31,84,.22); color:var(--soft); line-height:1.75; font-size:1.08rem; }
+    .actions { margin-top:28px; display:flex; justify-content:center; }
+    .back { border:0; border-radius:999px; padding:13px 22px; background:#fff; color:var(--rose); border:1px solid rgba(181,31,84,.18); font-family:inherit; font-weight:700; cursor:pointer; }
+    @media (max-width:700px) { .lights { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Elige cómo está tu corazón hoy</p>
+    <h1>Semáforo Emocional</h1>
+    <p class="lead">Pulsa el color que más se parezca a tu día y aparecerá un mensaje para acompañarte.</p>
+    <section class="panel">
+      <div class="lights">
+        <button class="light green" data-message="Me alegra verte bien. Guarda este día, disfrútalo sin culpa y acuérdate de que verte feliz también me hace feliz a mí."><strong>Verde</strong>Estoy bien</button>
+        <button class="light yellow" data-message="Si hoy estás a medias, no pasa nada. No tienes que resolverlo todo hoy. Respira, ve poco a poco y déjate cuidar."><strong>Amarillo</strong>Estoy sensible</button>
+        <button class="light red" data-message="Si hoy pesa demasiado, ven aquí. No estás sola. Te quiero en los días bonitos y también en los días que necesitan más paciencia."><strong>Rojo</strong>Necesito amor</button>
+      </div>
+      <p class="answer" id="answer">Elige un color para abrir tu mensaje.</p>
+    </section>
+    <div class="actions"><button class="back" onclick="location.href='index.html'">Volver al inicio</button></div>
+  </main>
+  <script>
+    document.querySelectorAll(".light").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.getElementById("answer").textContent = button.dataset.message;
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nuestras Mejores Frases</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap');
+    :root { --bg:#fff9f5; --bg2:#ffe0ea; --rose:#b51f54; --ink:#471728; --soft:#7a4357; --card:rgba(255,255,255,.86); --shadow:rgba(95,23,48,.18); }
+    * { box-sizing:border-box; } body { margin:0; min-height:100vh; font-family:"Playfair Display", Georgia, serif; color:var(--ink); background:radial-gradient(circle at 14% 12%, rgba(255,255,255,.82), transparent 28%), linear-gradient(145deg,var(--bg),var(--bg2)); }
+    header { text-align:center; padding:58px 20px 24px; } .eyebrow { margin:0 0 12px; text-transform:uppercase; letter-spacing:.16em; font-size:.78rem; color:var(--soft); }
+    h1 { margin:0; font-family:"Great Vibes", cursive; font-size:clamp(3.1rem,9vw,6.2rem); line-height:.95; color:var(--rose); } .lead { max-width:720px; margin:20px auto 0; color:var(--soft); line-height:1.75; font-size:1.08rem; }
+    main { width:min(1080px,100%); margin:0 auto; padding:18px 20px 62px; } .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .quote { min-height:170px; padding:22px; border-radius:24px; background:var(--card); border:1px solid rgba(181,31,84,.16); box-shadow:0 18px 38px var(--shadow); display:grid; align-content:center; }
+    .quote p { margin:0; font-size:1.25rem; line-height:1.45; color:var(--ink); } .quote span { display:block; margin-top:12px; color:var(--soft); font-size:.95rem; }
+    .actions { margin-top:28px; display:flex; justify-content:center; } button { border:0; border-radius:999px; padding:13px 22px; background:#fff; color:var(--rose); border:1px solid rgba(181,31,84,.18); font-family:inherit; font-weight:700; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <header><p class="eyebrow">Frases que son muy nuestras</p><h1>Nuestras Mejores Frases</h1><p class="lead">Un rincón para guardar frases, bromas internas y palabras que solo nosotros entendemos del todo.</p></header>
+  <main>
+    <section class="grid">
+      <article class="quote"><p>“Esto se queda para la historia.”</p><span>Para momentos que empiezan normales y acaban siendo recuerdo.</span></article>
+      <article class="quote"><p>“Un ratito más.”</p><span>Porque contigo casi siempre quiero quedarme un poco más.</span></article>
+      <article class="quote"><p>“Te quiero mucho, pero mucho.”</p><span>Versión corta de algo que no cabe entero en una frase.</span></article>
+      <article class="quote"><p>“Tenemos que volver aquí.”</p><span>Para esos lugares que se vuelven nuestros.</span></article>
+      <article class="quote"><p>“Mira, esta canción.”</p><span>Porque algunas canciones ya vienen con tu nombre.</span></article>
+      <article class="quote"><p>“Qué suerte tengo.”</p><span>La frase que más veces pienso cuando estoy contigo.</span></article>
+    </section>
+    <div class="actions"><button onclick="location.href='index.html'">Volver al inicio</button></div>
+  </main>
+</body>
+</html>
